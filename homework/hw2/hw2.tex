@@ -37,7 +37,26 @@ Let \(a\) and \(c\) be real numbers.
     \[\]
     \vspace*{-4em}
     \begin{enumerate}[label = (\alph*)]
-        \item a
+        \item
+              \begin{align*}
+                  \hat{g}(k) & = \int_{-\infty}^{\infty} g(x)e^{-ikx}dx                                        \\
+                             & = \int_{-\infty}^{\infty} f(x - a)e^{-ikx}dx                                    \\
+                             & = \int_{-\infty}^{\infty} f(y)e^{-ik(y + a)}dy \quad \text{(let \(y = x - a\))} \\
+                             & = e^{ika}\int_{-\infty}^{\infty} f(y)e^{-iky}dy                                 \\
+                             & = e^{ika}\hat{f}(k).
+              \end{align*}
+        \item \begin{align*}
+                  u_t(x, t)       & = -cu_x(x, t)                                                                                           \\
+                  \hat{u}_t(k, t) & = \int_{-\infty}^{\infty} -cu_x(x, t)e^{-ikx}dx                                                         \\
+                                  & = -c\int_{-\infty}^{\infty} u_x(x, t)e^{-ikx}dx                                                         \\
+                                  & = -c{\left[ u(x, t)e^{-ikx} \right]}_{-\infty}^{\infty} + c\int_{-\infty}^{\infty} u(x, t)ik e^{-ikx}dx \\
+                                  & = cik\hat{u}(k, t).
+              \end{align*}
+              We have the ODE \(\hat{u}_t(k, t) = cik\hat{u}(k, t)\), which has the solution \(\hat{u}(k, t) = \hat{u}(k, 0)e^{cikt} = \hat{f}(k)e^{cikt}\).
+
+              Using part (a), we have
+              \[u(x, t) = f(x - ct)\]
+              which is the solution to the transport PDE\@.
     \end{enumerate}
 \end{solution}
 
@@ -54,7 +73,20 @@ Consider the heat equation \(u_t = Du_{xx}\) with \(x \in \mathbb{R}\) and \(D >
     \[\]
     \vspace*{-4em}
     \begin{enumerate}[label = (\alph*)]
-        \item a
+        \item \begin{align*}
+                  u_t(x, t)    & = \frac{\partial}{\partial t}e^{\lambda t}e^{ikx}     \\
+                               & = \lambda e^{\lambda t}e^{ikx}                        \\
+                  u_{xx}(x, t) & = \frac{\partial^2}{\partial x^2}e^{\lambda t}e^{ikx} \\
+                               & = -k^2e^{\lambda t}e^{ikx}.
+              \end{align*}
+              \[u_t(x, t) = Du_{xx}(x, t) \implies \lambda e^{\lambda t}e^{ikx} = -Dk^2e^{\lambda t}e^{ikx}.\]
+              \[\lambda(k) = -Dk^2.\]
+        \item \[u_t(x, t) = \int_{-\infty}^{\infty} a(k)\lambda(k)e^{\lambda(k)t}e^{ikx}dk = \int_{-\infty}^{\infty} a(k)(-Dk^2)e^{-Dk^2t}e^{ikx}dk.\]
+              \[u_{xx}(x, t) = \int_{-\infty}^{\infty} a(k)(-k^2)e^{-Dk^2t}e^{ikx}dk.\]
+              \[u_t(x, t) = Du_{xx}(x, t).\]
+              Note that \(t \geq 0\) so that \(e^{-Dk^2t}\) is either 1 or Schwartz class.
+
+              Thus, \(u(x, t) = \int_{-\infty}^{\infty} a(k)e^{\lambda(k)t}e^{ikx}dk\) satisfies the heat equation for \(t \geq 0\).
     \end{enumerate}
 \end{solution}
 
@@ -64,12 +96,22 @@ Consider the heat equation \(u_t = Du_{xx}\) with \(x \in \mathbb{R}\) and \(D >
 Consider the equation \(u_t = u_{xxxx}\) for \(x \in \mathbb{R}\) with \(u(x,0) = f(x)\) where \(f(x)\) is Schwartz class. Derive an expression for the Fourier transform \(\hat{u}(k, t)\) of the solution \(u(x, t)\) in terms of \(k\), \(t\), and \(\hat{f}(k)\). (You do not need to find \(u(x, t)\) from \(\hat{u}(k, t)\)).
 \end{problem}
 \begin{solution}
+    \begin{align*}
+        u_t(x, t)       & = u_{xxxx}(x, t)                                     \\
+        \hat{u}_t(k, t) & = \int_{-\infty}^{\infty} u_{xxxx}(x, t)e^{-ikx}dx   \\
+                        & = \int_{-\infty}^{\infty} u(x, t){(-ik)}^4e^{-ikx}dx \\
+                        & = {(-ik)}^4\hat{u}(k, t)                             \\
+                        & = k^4\hat{u}(k, t).
+    \end{align*}
+    We have the ODE \(\hat{u}_t(k, t) = k^4\hat{u}(k, t)\), which has the solution \(\hat{u}(k, t) = \hat{u}(k, 0)e^{k^4t} = \hat{f}(k)e^{k^4t}\).
 
 \end{solution}
 
 \pagebreak
 
 \begin{problem}
+\[\]
+\vspace*{-4em}
 \begin{enumerate}[label = (\alph*)]
     \item For given \(D > 0\) and \(a, c \in \mathbb{R}\), consider the equation \(u_t = Du_{xx} + cu_x - au\) for \(x \in \mathbb{R}\) and \(t > 0\). Assume that \(u(x, t)\) is a solution of this equation. Verify that \(v(x, t) \coloneqq u(y - ct, t)e^{at}\) is a solution of \(v_t = Dv_{yy}\) for \(y \in \mathbb{R}\) and \(t > 0\).
     \item Recall that (from HW1)
@@ -81,7 +123,18 @@ Consider the equation \(u_t = u_{xxxx}\) for \(x \in \mathbb{R}\) with \(u(x,0) 
     \[\]
     \vspace*{-4em}
     \begin{enumerate}[label = (\alph*)]
-        \item a
+        \item \begin{align*}
+                  v_t(x, t) & = \frac{\partial}{\partial t}u(y - ct, t)e^{at}                                                                         \\
+                            & = u_t(y - ct, t)e^{at} - cu_x(y - ct, t)e^{at} + au(y - ct, t)e^{at}                                                    \\
+                            & = \left(Du_{xx}(y - ct, t) + cu_x(y - ct, t) - au(y - ct, t)\right)e^{at} - cu_x(y - ct, t)e^{at} + au(y - ct, t)e^{at} \\
+                            & = Du_{xx}(y - ct, t)e^{at}                                                                                              \\
+                            & = Dv_{yy}(x, t)
+              \end{align*}
+        \item We have that \(D = 1\), \(a = 2\), and \(c = 0\). Let \(v(x, t) = u(y - ct, t)e^{at}\). Then
+              \[u_t = Du_{xx} + cu_x - au \implies v_t = Dv_{yy}.\]
+              Let \(y = x\), \(c = 0\), and \(a = 2\). Then
+              \[v(x, t) = u(x, t)e^{2t}.\]
+              \[u(x, t) = v(x, t)e^{-2t} = \frac{1}{\sqrt{4\pi t}}e^{-\frac{x^2}{4t}}e^{-2t} = \frac{1}{\sqrt{4\pi t}}e^{-\frac{x^2}{4t} - 2t}\]
     \end{enumerate}
 \end{solution}
 

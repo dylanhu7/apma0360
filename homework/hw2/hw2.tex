@@ -1,0 +1,89 @@
+\documentclass[plain]{pset}
+\usepackage{dylan}
+
+\title{Homework 2}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{February 18, 2024}
+
+\begin{document}
+
+\begin{multicols}{2}
+    \raggedcolumns{}
+    \maketitle
+    \columnbreak{}
+    \tableofcontents
+\end{multicols}
+
+\setlength{\parskip}{1em}
+
+\pagebreak
+
+\begin{problem}
+Let \(a\) and \(c\) be real numbers.
+\begin{enumerate}[label = (\alph*)]
+    \item Show that if \(g(x) = f(x - a)\), then \(\hat{g}(k) = e^{ika}\hat{f}(k)\).
+    \item Use the Fourier transform and part (a) to solve the transport PDE
+          \[
+              \begin{cases}
+                  u_t + cu_x = 0 \\
+                  u(x, 0) = f(x)
+              \end{cases}
+          \]
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \[\]
+    \vspace*{-4em}
+    \begin{enumerate}[label = (\alph*)]
+        \item a
+    \end{enumerate}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Consider the heat equation \(u_t = Du_{xx}\) with \(x \in \mathbb{R}\) and \(D > 0\).
+\begin{enumerate}[label = (\alph*)]
+    \item For each \(k \in \mathbb{R}\), find \(\lambda = \lambda(k) \in \mathbb{R}\) so that \(u(x, t) = e^{\lambda t}e^{ikx}\) satisfies the heat equation. Here \(i\) = \(\sqrt{-1}\).
+    \item Assume that \(a(k)\) is Schwartz class in \(k\). Show that \(u(x, t) = \int_{-\infty}^{\infty} a(k)e^{\lambda(k)t}e^{ikx}dk\) satisfies the heat equation for \(t \geq 0\).
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \[\]
+    \vspace*{-4em}
+    \begin{enumerate}[label = (\alph*)]
+        \item a
+    \end{enumerate}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Consider the equation \(u_t = u_{xxxx}\) for \(x \in \mathbb{R}\) with \(u(x,0) = f(x)\) where \(f(x)\) is Schwartz class. Derive an expression for the Fourier transform \(\hat{u}(k, t)\) of the solution \(u(x, t)\) in terms of \(k\), \(t\), and \(\hat{f}(k)\). (You do not need to find \(u(x, t)\) from \(\hat{u}(k, t)\)).
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+\begin{enumerate}[label = (\alph*)]
+    \item For given \(D > 0\) and \(a, c \in \mathbb{R}\), consider the equation \(u_t = Du_{xx} + cu_x - au\) for \(x \in \mathbb{R}\) and \(t > 0\). Assume that \(u(x, t)\) is a solution of this equation. Verify that \(v(x, t) \coloneqq u(y - ct, t)e^{at}\) is a solution of \(v_t = Dv_{yy}\) for \(y \in \mathbb{R}\) and \(t > 0\).
+    \item Recall that (from HW1)
+          \[v(y, t) = \frac{1}{\sqrt{4\pi t}}e^{-\frac{y^2}{4t}}\]
+          satisfies \(v_t = v_{yy}\) for \(y \in \mathbb{R}\) and \(t > 0\). Use the preceding part to find the solution \(u(x, t)\) to \(u_t = u_{xx} + 2u_x - 0.5u\).
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \[\]
+    \vspace*{-4em}
+    \begin{enumerate}[label = (\alph*)]
+        \item a
+    \end{enumerate}
+\end{solution}
+
+
+\end{document}

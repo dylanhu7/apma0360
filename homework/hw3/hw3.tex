@@ -1,0 +1,79 @@
+\documentclass[plain]{pset}
+\usepackage{dylan}
+
+\title{Homework 3}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{February 25, 2024}
+
+\begin{document}
+
+\begin{multicols}{2}
+    \raggedcolumns{}
+    \maketitle
+    \columnbreak{}
+    \tableofcontents
+\end{multicols}
+
+\setlength{\parskip}{1em}
+
+\pagebreak
+
+\begin{problem}
+Solve
+\[\begin{cases}\begin{aligned}
+            u_t - Du_{xx} & = 0   \\
+            u(x, 0)       & = e^x
+        \end{aligned}\end{cases}\]
+explicitly.
+\begin{remark*}
+    You are allowed to use the solution formula even though \(u(x, 0)\) is not in Schwartz class.
+\end{remark*}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Use the Fourier transform to find the general solution of the wave equation
+\[u_{tt} = c^2u_{xx}\]
+\begin{hint*}
+    You may use the fact from ODE that:
+    \[y'' + a^2y = 0 \implies y(t) = Ae^{iat} + Be^{-iat}\]
+    and Question 1 from HW2.
+\end{hint*}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve
+\[\begin{cases}\begin{aligned}
+            u_{tt} - 3u_{xt} - 4u_{xx} & = 0      \\
+            u(x, 0)                    & = 2x^2   \\
+            u_t(x, 0)                  & = e^{4x}
+        \end{aligned}\end{cases}\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Choose \(\alpha > 0\). Let \(u(x, t)\) be a solution of Schwartz to the damped wave equation \(u_{tt} + \alpha u_t = u_{xx}\). Show that the energy
+\[E(t) = \frac{1}{2}\int_{-\infty}^{\infty} \left[\left(u_t(x, t)\right)^2 + \left(u_x(x, t)\right)^2\right]dx\]
+is non-increasing (\(\frac{d}{dt}E(t) \leq 0\)).
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+
+\end{document}

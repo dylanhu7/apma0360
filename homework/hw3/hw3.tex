@@ -32,6 +32,34 @@ explicitly.
 \end{remark*}
 \end{problem}
 \begin{solution}
+    Recall that the fundamental solution to the heat equation is
+    \[G(x, t) = \frac{1}{\sqrt{4\pi Dt}}e^{-\frac{x^2}{4Dt}}\]
+    and the solution to the heat equation is
+    \[u(x, t) = \int_{-\infty}^{\infty} G(x - y, t)u(y, 0)\,dy\]
+    so
+    \[u(x, t) = \frac{1}{\sqrt{4\pi Dt}} \int_{-\infty}^{\infty} e^{-\frac{{(x - y)}^2}{4Dt}}e^y\,dy.\]
+    Focusing on the exponent, we have
+    \[-\frac{{(x - y)}^2}{4Dt} + y = \frac{4Dty - {(x - y)}^2}{4Dt}\]
+    Focusing on the numerator, we complete the square with respect to \(y\):
+    \begin{align*}
+        4Dty - {(x - y)}^2 & = 4Dty - x^2 + 2xy - y^2                  \\
+                           & = -y^2 + 2xy + 4Dty - x^2                 \\
+                           & = -y^2 + (2x + 4Dt)y - x^2                \\
+                           & = -\left(y^2 - (2x + 4Dt)y\right) - x^2   \\
+                           & = -{(y - x -2Dt)}^2 - x^2 + {(x + 2Dt)}^2 \\
+                           & = -{(y - x - 2Dt)}^2 + 4Dtx + 4D^2t^2     \\
+                           & = -{(y - x - 2Dt)}^2 + 4Dt(x + Dt)
+    \end{align*}
+    So we have
+    \begin{align*}
+        u(x, t) & = \frac{1}{\sqrt{4\pi Dt}} \int_{-\infty}^{\infty} e^{-\frac{{(y - x - 2Dt)}^2}{4Dt}}e^{x + Dt}\,dy                  \\
+                & = \frac{e^{x + Dt}}{\sqrt{4\pi Dt}} \int_{-\infty}^{\infty} e^{-\frac{{(y - x - 2Dt)}^2}{4Dt}}\,dy                   \\
+                & = \frac{e^{x + Dt}}{\sqrt{4\pi Dt}} \int_{-\infty}^{\infty} e^{-{\left(\frac{y - x - 2Dt}{\sqrt{4Dt}}\right)}^2}\,dy
+    \end{align*}
+    Let \(u = \frac{y - x - 2Dt}{\sqrt{4Dt}}\), so \(du = \frac{1}{\sqrt{4Dt}}\,dy\), and
+    \[u(x, t) = \frac{e^{x + Dt}}{\sqrt{\pi}} \int_{-\infty}^{\infty} e^{-u^2}\,du\]
+    which is the Gaussian integral, so
+    \[u(x, t) = \frac{e^{x + Dt}}{\sqrt{\pi}} \sqrt{\pi} = e^{x + Dt}\]
 
 \end{solution}
 
@@ -47,7 +75,22 @@ Use the Fourier transform to find the general solution of the wave equation
 \end{hint*}
 \end{problem}
 \begin{solution}
-
+    We may first take the Fourier transform of both sides:
+    \[\mathcal{F}\{u_{tt}\} = \mathcal{F}\{c^2u_{xx}\}\]
+    \[\hat{u}_{tt} = c^2(ik)^2\hat{u}\]
+    \[\hat{u}_{tt} = -c^2k^2\hat{u}\]
+    This is a second order ODE in \(\hat{u}\), and we can use the provided fact to obtain
+    \[\hat{u}'' + c^2k^2\hat{u} = 0 \implies \hat{u}(t) = A(k)e^{ickt} + B(k)e^{-ickt}\]
+    Now we take the inverse Fourier transform of \(\hat{u}\):
+    \[u(x, t) = \mathcal{F}^{-1}\{\hat{u}(t)\} = \mathcal{F}^{-1}\{Ae^{ickt} + Be^{-ickt}\}\]
+    Recall from Question 1 of HW2 (using \(v\) to distinguish from \(u\)) that
+    \[\hat{v}_1(k, t) = \hat{v}_1(k, 0)e^{ickt} = \hat{f_1}(k)e^{ickt} \implies v_1(x, t) = f_1(x - ct)\]
+    And similarly we have
+    \[\hat{v}_2(k, t) = \hat{v}_2(k, 0)e^{-ickt} = \hat{f_2}(k)e^{-ickt} \implies v_2(x, t) = f_2(x + ct)\]
+    So, we may write
+    \[u(x, t) = \mathcal{F}^{-1}\{A(k)e^{ickt} + B(k)e^{-ickt}\} = \mathcal{F}^{-1}\{\hat{u}(t)\} = \mathcal{F}^{-1}\{A(k)\hat{u}(k, 0)e^{ickt} + B(k)\hat{u}(k, 0)e^{-ickt}\}\]
+    Letting \(f(k) \coloneqq A(k)\hat{u}(k, 0)\) and \(g(k) \coloneqq B(k)\hat{u}(k, 0)\), we have
+    \[u(x, t) = \mathcal{F}^{-1}\{f(k)e^{ickt} + g(k)e^{-ickt}\} = f(x - ct) + g(x + ct)\]
 \end{solution}
 
 \pagebreak
@@ -61,6 +104,39 @@ Solve
         \end{aligned}\end{cases}\]
 \end{problem}
 \begin{solution}
+    % forget this, will use different method
+    % We may first take the Fourier transform of both sides:
+    % \[\mathcal{F}\{u_{tt}\} - 3\mathcal{F}\{u_{xt}\} - 4\mathcal{F}\{u_{xx}\} = 0\]
+    % \[\hat{u}_{tt} - 3ik\hat{u}_t + 4k^2\hat{u} = 0\]
+    % This is a second order ODE in \(\hat{u}\) with respect to \(t\), and we can write the auxiliary equation
+    % \[r^2 - 3ikr + 4k^2 = 0\]
+    % which has solutions
+    % \[r = \frac{3ik \pm \sqrt{{(3ik)}^2 - 4(4k^2)}}{2} = \frac{3ik \pm \sqrt{-9k^2 - 16k^2}}{2} = \frac{3ik \pm \sqrt{-25k^2}}{2} = \frac{3ik \pm 5ik}{2} = 8ik, -ik\]
+    % So we have
+
+    \[u_{tt} - 3u_{xt} - 4u_{xx} \Longleftrightarrow \left(\frac{\partial}{\partial t} - 4\frac{\partial }{\partial x}\right)\left(\frac{\partial }{\partial t} + \frac{\partial }{\partial x}\right)u = 0\]
+    So we have
+    \[\begin{cases}\begin{aligned}
+                \xi  & = x - t  \\
+                \eta & = x + 4t
+            \end{aligned}\end{cases}\]
+    and \[\begin{cases}\begin{aligned}
+                x & = \frac{4\xi + \eta}{5} \\
+                t & = \frac{\eta - \xi}{5}
+            \end{aligned}\end{cases}\]
+    Then
+    \[\frac{\partial }{\partial \xi} = \frac{4}{5}\frac{\partial }{\partial x} - \frac{1}{5}\frac{\partial }{\partial t} = -\frac{1}{5}\left(\frac{\partial }{\partial t} - 4\frac{\partial }{\partial x}\right)\]
+    and
+    \[\frac{\partial }{\partial \eta} = \frac{1}{5}\frac{\partial }{\partial x} + \frac{1}{5}\frac{\partial }{\partial t} = \frac{1}{5}\left(\frac{\partial }{\partial t} + \frac{\partial }{\partial x}\right)\]
+    Let us define
+    \[V(\xi, \eta) = u\left(\frac{4\xi + \eta}{5}, \frac{\eta - \xi}{5}\right)\]
+    As in lecture, we can compute to find
+    \[V_{\xi\eta} = 0 \implies V(\xi, \eta) = F(\xi) + G(\eta) = F(x - t) + G(x + 4t)\]
+    so
+    \[u(x, t) = F(x - t) + G(x + 4t)\]
+    Now we need to find \(F\) and \(G\) using the initial conditions.
+
+
 
 \end{solution}
 
@@ -68,11 +144,20 @@ Solve
 
 \begin{problem}
 Choose \(\alpha > 0\). Let \(u(x, t)\) be a solution of Schwartz to the damped wave equation \(u_{tt} + \alpha u_t = u_{xx}\). Show that the energy
-\[E(t) = \frac{1}{2}\int_{-\infty}^{\infty} \left[\left(u_t(x, t)\right)^2 + \left(u_x(x, t)\right)^2\right]dx\]
+\[E(t) = \frac{1}{2}\int_{-\infty}^{\infty} \left[{\left(u_t(x, t)\right)}^2 + {\left(u_x(x, t)\right)}^2\right]dx\]
 is non-increasing (\(\frac{d}{dt}E(t) \leq 0\)).
 \end{problem}
 \begin{solution}
-
+    \begin{align*}
+        \frac{d}{dt}E(t) & = \frac{1}{2}\int_{-\infty}^{\infty} \frac{\partial }{\partial t}\left[{\left(u_t(x, t)\right)}^2 + {\left(u_x(x, t)\right)}^2\right]dx                            \\
+                         & = \frac{1}{2}\int_{-\infty}^{\infty} 2u_t(x, t)u_{tt}(x, t) + 2u_x(x, t)u_{xt}(x, t)dx                                                                             \\
+                         & = \int_{-\infty}^{\infty} u_t(x, t)(u_{xx}(x, t) - \alpha u_t(x, t)) + u_x(x, t)u_{xt}(x, t)dx                                                                     \\
+                         & = \int_{-\infty}^{\infty} u_t(x, t)u_{xx}(x, t) dx - \alpha \int_{-\infty}^{\infty} {\left(u_t(x, t)\right)}^2dx + \int_{-\infty}^{\infty} u_x(x, t)u_{xt}(x, t)dx \\
+                         & = -\int_{-\infty}^{\infty} u_x(x, t)u_t(x, t)dx - \alpha \int_{-\infty}^{\infty} {\left(u_t(x, t)\right)}^2dx + \int_{-\infty}^{\infty} u_x(x, t)u_{xt}(x, t)dx    \\
+                         & = -\int_{-\infty}^{\infty} u_x(x, t)u_{xt}(x, t)dx - \alpha \int_{-\infty}^{\infty} {\left(u_t(x, t)\right)}^2dx + \int_{-\infty}^{\infty} u_x(x, t)u_{xt}(x, t)dx \\
+                         & = -\alpha \int_{-\infty}^{\infty} {\left(u_t(x, t)\right)}^2dx \leq 0
+    \end{align*}
+    where the last inequality follows from the fact that \(\alpha > 0\) and the integrand is non-negative.
 \end{solution}
 
 

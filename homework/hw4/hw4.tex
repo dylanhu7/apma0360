@@ -1,0 +1,95 @@
+\documentclass[plain]{pset}
+\usepackage{dylan}
+
+\title{Homework 4}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{March 10, 2024}
+
+\begin{document}
+
+\begin{multicols}{2}
+    \raggedcolumns{}
+    \maketitle
+    \columnbreak{}
+    \tableofcontents
+\end{multicols}
+
+\setlength{\parskip}{1em}
+
+\pagebreak
+
+\begin{problem}
+Verify the superposition principle: if \(u_1\) and \(u_2\) are two solutions to
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx}        & = 0, & 0 & < x < \pi, & t > 0, \\
+            u(0, t) = u(\pi, t) & = 0, & t & > 0                 \\
+        \end{aligned}
+    \end{cases}
+\]
+then so is \(a_1u_1 + a_2u_2\) for any constants \(a_1, a_2\). Is it still true if the boundary condition is \(u(0, t) = u(\pi, t) = 1\)?
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Use separation of variables to solve
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx}            & = 0,             & 0 & < x < \pi, & t > 0, \\
+            u_x(0, t) = u_x(\pi, t) & = 0,             & t & > 0,                \\
+            u(x, 0)                 & = 1 + 2\cos(3x), & 0 & < x < \pi           \\
+        \end{aligned}
+    \end{cases}
+\]
+explicitly. You don't need to go through all 3 cases.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Consider the following heat-like equation:
+\[
+    \begin{cases}
+        \begin{aligned}
+            tu_t - u_{xx}             & = 0, & 0 & < x < \pi, & t > 0, \\
+            u(0, t)       = u(\pi, t) & = 0, & t & > 0,                \\
+        \end{aligned}
+    \end{cases}
+\]
+Use separation of variables to write the solution as an infinite series. You don't need to go through all 3 cases.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Consider the heat equation with mixed boundary conditions
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx} & = 0, & 0 & < x < \pi, & t > 0, \\
+            u_x(0, t)    & = 0, & t & > 0,                \\
+            u(\pi, t)    & = 0, & t & > 0.                \\
+        \end{aligned}
+    \end{cases}
+\]
+Use separation of variables and go through all 3 cases to write the solution as an infinite series.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\end{document}

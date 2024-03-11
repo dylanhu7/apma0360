@@ -17,6 +17,7 @@
 \end{multicols}
 
 \setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
 
 \pagebreak
 
@@ -33,7 +34,41 @@ Verify the superposition principle: if \(u_1\) and \(u_2\) are two solutions to
 then so is \(a_1u_1 + a_2u_2\) for any constants \(a_1, a_2\). Is it still true if the boundary condition is \(u(0, t) = u(\pi, t) = 1\)?
 \end{problem}
 \begin{solution}
+    We can verify the superposition principle by plugging in \(u_1\) and \(u_2\) into the heat equation and adding them together. We have
+    \[
+        \begin{aligned}
+            (a_1u_1 + a_2u_2)_t - (a_1u_1 + a_2u_2)_{xx} & = a_1u_{1t} + a_2u_{2t} - a_1u_{1xx} - a_2u_{2xx}   \\
+                                                         & = a_1u_{1xx} + a_2u_{2xx} - a_1u_{1xx} - a_2u_{2xx} \\
+                                                         & = 0
+        \end{aligned}
+    \]
+    and
+    \[
+        \begin{aligned}
+            (a_1u_1 + a_2u_2)(0, t) & = a_1u_1(0, t) + a_2u_2(0, t) \\
+                                    & = a_1(0) + a_2(0)             \\
+                                    & = 0
+        \end{aligned}
+    \]
+    and
+    \[
+        \begin{aligned}
+            (a_1u_1 + a_2u_2)(\pi, t) & = a_1u_1(\pi, t) + a_2u_2(\pi, t) \\
+                                      & = a_1(0) + a_2(0)                 \\
+                                      & = 0
+        \end{aligned}
+    \]
+    so \(a_1u_1 + a_2u_2\) is also a solution.
 
+    If the boundary condition is \(u(0, t) = u(\pi, t) = 1\), then we have
+    \[
+        \begin{aligned}
+            (a_1u_1 + a_2u_2)(0, t) & = a_1u_1(0, t) + a_2u_2(0, t) \\
+                                    & = a_1(1) + a_2(1)             \\
+                                    & = a_1 + a_2
+        \end{aligned}
+    \]
+    \(a_1 + a_2\) is not 1 for all \(a_1, a_2\), so the superposition principle does not hold.
 \end{solution}
 
 \pagebreak
@@ -52,7 +87,119 @@ Use separation of variables to solve
 explicitly. You don't need to go through all 3 cases.
 \end{problem}
 \begin{solution}
+    We look for a solution of the form \(u(x, t) = X(x)T(t)\). Plugging this into the heat equation, we have
+    \[X(x)T'(t) - X''(x)T(t)  = 0\]
+    \[\frac{T'(t)}{T(t)}      = \frac{X''(x)}{X(x)} = \lambda\]
+    The boundary conditions give us
+    \[u_x(0, t) = X'(0)T(t) = 0 \implies X'(0) = 0\]
+    \[u_x(\pi, t) = X'(\pi)T(t) = 0 \implies X'(\pi) = 0\]
+    We now have a system of ODEs for \(X(x)\):
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X''(x) - \lambda X(x) & = 0, & 0 & < x < \pi, \\
+                X'(0) = X'(\pi)       & = 0, &   &            \\
+            \end{aligned}
+        \end{cases}
+    \]
+    Let us define
+    \[V(x) = \begin{bmatrix}
+            X'(x) \\
+            X(x)  \\
+        \end{bmatrix}\]
+    Then we have
+    \[V'(x) = \begin{bmatrix}
+            X''(x) \\
+            X'(x)  \\
+        \end{bmatrix} = \begin{bmatrix}
+            0 & \lambda \\
+            1 & 0       \\
+        \end{bmatrix}\begin{bmatrix}
+            X'(x) \\
+            X(x)  \\
+        \end{bmatrix}
+    \]
+    So we have
+    \[V'(x) = A\,V(x), \quad A = \begin{bmatrix}
+            0 & \lambda \\
+            1 & 0       \\
+        \end{bmatrix}\]
+    We can find the eigenvalues and eigenvectors of \(A\):
+    \[\det(A - \Lambda I) = \det\begin{bmatrix}
+            -\Lambda & \lambda  \\
+            1        & -\Lambda \\
+        \end{bmatrix} = \Lambda^2 - \lambda = 0\]
+    So the eigenvalues are \(\pm\sqrt{\lambda}\).
 
+    \textbf{Case \(\mathbf{\lambda = 0}\)}. Then \(\lambda_1 = \lambda_2 = 0\).
+    \[A - \lambda_1I = \begin{bmatrix}
+            0 & 0 \\
+            1 & 0 \\
+        \end{bmatrix}
+    \]
+    gives us the eigenvector \(\begin{bmatrix}
+        0 \\
+        1 \\
+    \end{bmatrix}\). We can find a generalized eigenvector by solving
+    \[
+        \begin{bmatrix}
+            0 & 0 \\
+            1 & 0 \\
+        \end{bmatrix}\begin{bmatrix}
+            v_1 \\
+            v_2 \\
+        \end{bmatrix} = \begin{bmatrix}
+            0 \\
+            1 \\
+        \end{bmatrix}
+    \]
+    which gives us \(v_1 = 1\). So the generalized eigenvector is \(\begin{bmatrix}
+        1 \\
+        0 \\
+    \end{bmatrix}\).
+    We have the solution
+    \[V(x) = a_1 e^{0x}\begin{bmatrix}
+            0 \\
+            1 \\
+        \end{bmatrix} + a_2 e^{0x}\left(x\begin{bmatrix}
+                1 \\
+                0 \\
+            \end{bmatrix} + \begin{bmatrix}
+                1 \\
+                0 \\
+            \end{bmatrix}\right)\]
+    which gives us
+    \[X(x) = a_1 + a_2x\]
+    We have
+    \[X'(x) = a_2\]
+    The boundary conditions give us
+    \[X'(0) = X'(\pi) = a_2 = 0 \implies a_2 = 0\]
+    So the solution is
+    \[X(x) = a\] for any constant \(a\).
+
+    \textbf{Case \(\mathbf{\lambda < 0}\)}. Let \(\lambda = -\omega^2\), where \(\omega > 0\). Then the eigenvalues are \(\pm i\omega\).
+    This gives the solution
+    \[X(x) = a_1\cos(\omega x) + a_2\sin(\omega x)\]
+    for any constants \(a_1, a_2\).
+    We have
+    \[X'(x) = -a_1\omega\sin(\omega x) + a_2\omega\cos(\omega x)\]
+    and the boundary conditions give us
+    \[X'(0) = -a_1\omega\sin(0) + a_2\omega\cos(0) = 0 \implies a_2 = 0\]
+    \[X'(\pi) = -a_1\omega\sin(\omega\pi) = 0 \implies \omega = n\]
+    where \(n \in \mathbb{Z}^+\). So \(X(x) = a_1\cos(nx)\) and \(\lambda = -n^2\).
+    We now turn to the ODE for \(T(t)\):
+    \[\frac{T'(t)}{T(t)} = \lambda = -n^2\]
+    \[T'(t) = -n^2T(t)\]
+    \[T(t) = Ce^{-n^2t}\]
+    where \(C\) is a constant.
+    A solution is then
+    \[u(x, t) = X(x)T(t) = Ce^{-n^2t}\cos(nx)\]
+    By the principle of superposition, the general solution is
+    \[u(x, t) = a + \sum_{n=1}^\infty a_n e^{-n^2t}\cos(nx)\]
+    where \(a_n\) are constants. We can find the constants by using the initial condition:
+    \[u(x, 0) = a + \sum_{n=1}^\infty a_n\cos(nx) = 1 + 2\cos(3x)\]
+    We have \(a = 1\), \(a_3 = 2\), and \(a_n = 0\) for all other \(n\). So the solution is
+    \[u(x, t) = 1 + 2e^{-9t}\cos(3x)\]
 \end{solution}
 
 \pagebreak
@@ -70,6 +217,50 @@ Consider the following heat-like equation:
 Use separation of variables to write the solution as an infinite series. You don't need to go through all 3 cases.
 \end{problem}
 \begin{solution}
+    Let \(u(x, t) = X(x)T(t)\). Then
+    \[tX(x)T'(t) - X''(x)T(t) = 0\]
+    \[\frac{tT'(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda\]
+    The boundary conditions give us
+    \[u(0, t) = X(0)T(t) = 0 \implies X(0) = 0\]
+    \[u(\pi, t) = X(\pi)T(t) = 0 \implies X(\pi) = 0\]
+    We now have a system of ODEs for \(X(x)\):
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X''(x) - \lambda X(x) & = 0, & 0 & < x < \pi, \\
+                X(0) = X(\pi)         & = 0, &   &            \\
+            \end{aligned}
+        \end{cases}
+    \]
+    Like in the previous problem, we arrive at the solution
+    \[X(x) = a_1\cos(\omega x) + a_2\sin(\omega x)\]
+    where \(\lambda = -\omega^2\) and \(\omega > 0\).
+    Using the boundary conditions, we have
+    \[X(0) = a_1\cos(0) + a_2\sin(0) = a_1 = 0\]
+    \[X(\pi) = a_2\sin(\omega\pi) = 0 \implies \omega = n\]
+    where \(n \in \mathbb{Z}^+\). So \(X(x) = a\sin(nx)\) and \(\lambda = -n^2\).
+
+    We now turn to the ODE for \(T(t)\):
+    \[\frac{tT'(t)}{T(t)} = \lambda = -n^2\]
+    \[tT'(t) = -n^2T(t)\]
+    \[\frac{T'(t)}{T(t)} = -\frac{n^2}{t}\]
+    \[T'(t) = -\frac{n^2}{t}T(t)\]
+    \[T'(t) + \frac{n^2}{t}T(t) = 0\]
+    This is a first-order linear ODE with variable coefficients. We can solve it using an integrating factor:
+    \[\mu(t) = e^{\int\frac{n^2}{t}\,dt} = e^{n^2\ln(t)} = e^{\ln(t^{n^2})} = t^{n^2}\]
+    \[T'(t)t^{n^2} + \frac{n^2}{t}T(t)t^{n^2} = 0\]
+    \[\left(T(t)t^{n^2}\right)' = 0\]
+    \[T(t)t^{n^2} = C\]
+    \[T(t) = Ct^{-n^2}\]
+    where \(C\) is a constant.
+
+    A solution is then
+    \[u(x, t) = X(x)T(t) = C\sin(nx)t^{-n^2}\]
+
+    By the principle of superposition, the general solution is
+    \[u(x, t) = \sum_{n=1}^\infty a_n\sin(nx)t^{-n^2}\]
+    where \(a_n\) are constants.
+
 
 \end{solution}
 
@@ -89,6 +280,90 @@ Consider the heat equation with mixed boundary conditions
 Use separation of variables and go through all 3 cases to write the solution as an infinite series.
 \end{problem}
 \begin{solution}
+    As before, we let \(u(x, t) = X(x)T(t)\). Then
+    \[\frac{T'(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda\]
+    The boundary conditions give us
+    \[u_x(0, t) = X'(0)T(t) = 0 \implies X'(0) = 0\]
+    \[u(\pi, t) = X(\pi)T(t) = 0 \implies X(\pi) = 0\]
+    We now have a system of ODEs for \(X(x)\):
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X''(x) - \lambda X(x) & = 0, & 0 & < x < \pi, \\
+                X'(0)                 & = 0  &   &            \\
+                X(\pi)                & = 0  &   &            \\
+            \end{aligned}
+        \end{cases}
+    \]
+    As before, the eigenvalues are \(\pm\sqrt{\lambda}\).
+
+    \textbf{Case \(\mathbf{\lambda > 0}\)}. Let \(\lambda = \omega^2\), where \(\omega > 0\). Then \(\lambda_1 = \omega^2\) and \(\lambda_2 = -\omega^2\).
+    \[A - \lambda_1I = \begin{bmatrix}
+            -\omega & \omega^2 \\
+            1       & -\omega  \\
+        \end{bmatrix}\]
+    so an eigenvector corresponding to \(\lambda_1\) is \(\begin{bmatrix}
+        \omega \\
+        1      \\
+    \end{bmatrix}\).
+    \[A - \lambda_2I = \begin{bmatrix}
+            \omega & \omega^2 \\
+            1      & \omega   \\
+        \end{bmatrix}\]
+    so an eigenvector corresponding to \(\lambda_2\) is \(\begin{bmatrix}
+        -\omega \\
+        1       \\
+    \end{bmatrix}\).
+    We have the solution
+    \[V(x) = a_1 e^{\omega x}\begin{bmatrix}
+            \omega \\
+            1      \\
+        \end{bmatrix} + a_2 e^{-\omega x}\begin{bmatrix}
+            -\omega \\
+            1       \\
+        \end{bmatrix}\]
+    which gives us
+    \[X(x) = a_1 e^{\omega x} + a_2 e^{-\omega x}\] for any constants \(a_1, a_2\).
+    We have
+    \[X'(x) = a_1\omega e^{\omega x} - a_2\omega e^{-\omega x}\]
+    The boundary conditions give us
+    \[X'(0) = a_1\omega - a_2\omega = 0 \implies a_1 = a_2\]
+    \[X(\pi) = a_1 e^{\omega\pi} + a_2 e^{-\omega\pi} = a_1 e^{\omega\pi} + a_1 e^{-\omega\pi} = a_1(e^{\omega\pi} + e^{-\omega\pi}) = 0 \implies a_1 = a_2 = 0\]
+    So, we have no solution for \(\lambda > 0\).
+
+    \textbf{Case \(\mathbf{\lambda = 0}\)}. Then \(\lambda_1 = \lambda_2 = 0\).
+    As before, we have the general solution
+    \[X(x) = a_1 + a_2x\]
+    We have
+    \[X'(x) = a_2\]
+    The boundary conditions give us
+    \[X'(0) = a_2 = 0 \implies X(x) = a_1\]
+    \[X(\pi) = a_1 = 0 \implies a_1 = 0\]
+    So, we have no solution for \(\lambda = 0\).
+
+    \textbf{Case \(\mathbf{\lambda < 0}\)}.
+    As before, we have the general solution
+    \[X(x) = a_1\cos(\omega x) + a_2\sin(\omega x)\]
+    for any constants \(a_1, a_2\).
+    We have
+    \[X'(x) = -a_1\omega\sin(\omega x) + a_2\omega\cos(\omega x)\]
+    and the boundary conditions give us
+    \[X'(0) = -a_1\omega\sin(0) + a_2\omega\cos(0) = 0 \implies a_2 = 0\]
+    \[X(\pi) = a_1\cos(\omega\pi) = 0 \implies \omega = \frac{n}{2}\]
+    where \(n \in \mathbb{Z}^+\). So \(X(x) = a_1\cos\left(\frac{n}{2}x\right)\) and \(\lambda = -\frac{n^2}{4}\).
+
+    We now turn to the ODE for \(T(t)\):
+    \[\frac{T'(t)}{T(t)} = \lambda = -\frac{n^2}{4}\]
+    \[T'(t) = -\frac{n^2}{4}T(t)\]
+    \[T(t) = Ce^{-\frac{n^2}{4}t}\]
+    where \(C\) is a constant.
+
+    A solution is then
+    \[u(x, t) = X(x)T(t) = Ce^{-\frac{n^2}{4}t}\cos\left(\frac{n}{2}x\right)\]
+
+    By the principle of superposition, the general solution is
+    \[u(x, t) = \sum_{n=1}^\infty a_n e^{-\frac{n^2}{4}t}\cos\left(\frac{n}{2}x\right)\]
+    where \(a_n\) are constants.
 
 \end{solution}
 

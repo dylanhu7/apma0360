@@ -1,0 +1,107 @@
+\documentclass[plain]{pset}
+\usepackage{dylan}
+
+\title{Homework 5}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{March 17, 2024}
+
+\begin{document}
+
+\begin{multicols}{2}
+    \raggedcolumns{}
+    \maketitle
+    \columnbreak{}
+    \tableofcontents
+\end{multicols}
+
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+
+\pagebreak
+
+\begin{problem}
+\[\]
+\vspace{-4em}
+\begin{enumerate}[a.]
+    \item Verify \(\cos(nx)\)and \(\cos(mx)\) are orthogonal on \((0, \pi)\) when \(n \neq m\) and \(n, m \in \mathbb{N}\). That is
+          \[
+              \int_0^\pi \cos(nx)\cos(mx) \dd x= 0.
+          \]
+    \item Verify \(\sin(nx)\) and \(\sin(mx)\) are orthogonal on \((-\pi, \pi)\) when \(n, m \in \mathbb{N}\). That is
+          \[
+              \int_{-\pi}^\pi \sin(nx)\cos(mx) \dd x= 0.
+          \]
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \[\]
+    \vspace{-4em}
+    \begin{enumerate}[a.]
+        \item
+              \begin{align*}
+                  \int_0^\pi \cos(nx)\cos(mx) \dd x & = \frac{1}{2}\int_0^\pi \left(\cos((n+m)x) + \cos((n-m)x)\right) \dd x                 \\
+                                                    & = \frac{1}{2}\left[\frac{1}{n+m}\sin((n+m)x) + \frac{1}{n-m}\sin((n-m)x) \right]_0^\pi \\
+                                                    & = \frac{1}{2}\left[\frac{1}{n+m}\sin((n+m)\pi) + \frac{1}{n-m}\sin((n-m)\pi) \right]   \\
+                                                    & = 0
+              \end{align*}
+              We have used the fact that \(\sin(m\pi) = \sin(n\pi)= 0\) for \(m, n \in \mathbb{N}\) and that \(n \neq m \implies n \pm m \neq 0\).
+        \item
+              \begin{align*}
+                  \int_{-\pi}^\pi \sin(nx)\cos(mx) \dd x & = \frac{1}{2} \int_{-\pi}^\pi \left(\sin((n+m)x) + \sin((n-m)x)\right) \dd x                                                 \\
+                                                         & = \frac{1}{2} \int_{-\pi}^\pi \left(\sin((n+m)x) \right) \dd x + \frac{1}{2} \int_{-\pi}^\pi \left(\sin((n-m)x)\right) \dd x \\
+                                                         & = 0 + 0 = 0
+              \end{align*}
+              We use the fact that \(\sin\) is an odd function and \((-\pi, \pi)\) is symmetric, so \(\int_{-\pi}^\pi \sin((n+m)x) \dd x = 0\) and \(\int_{-\pi}^\pi \sin((n-m)x) \dd x = 0\).
+    \end{enumerate}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx}        & = 0,   &  & 0 < x < \pi, & t > 0, \\
+            u_x(0, t) = u_x(\pi, t) & = 0,   &  & t > 0,                \\
+            u(x, 0)             & = x^2, &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+explicitly.
+\end{problem}
+
+\begin{solution}
+    \[u(x, t) = X(x)T(t)\]
+    Using the heat equation, we have
+    \[
+        X(x)T'(t) - X''(x)T(t) = 0 \implies \frac{T'(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda
+    \]
+    As in HW4, we have the following eigenvalue problem
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X''(x) + \lambda X(x) & = 0, &  & 0 < x < \pi, \\
+                X'(0) = X'(\pi)       & = 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    We recall that in the case of \(\lambda = 0\), we have \(X(x) = a_0\) and in the case of \(\lambda < 0\), we have \(X(x) = a\cos(\omega x) + b\sin(\omega x)\) where \(\lambda = -\omega^2\) and \(\omega \in \mathbb{R}^+\). Using the boundary conditions:
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X'(0) = 0 & \implies -a\omega\sin(0) + b\omega\cos(0) = 0 \implies b\omega = 0 \implies b = 0, \\
+                X'(\pi) = 0 & \implies -a\omega\sin(\omega\pi) = 0 \implies \sin(\omega\pi) = 0 \implies \omega = n, n \in \mathbb{N}.
+            \end{aligned}
+        \end{cases}
+    \]
+    We now turn to the ODE in \(T(t)\):
+    \[
+        \frac{T'(t)}{T(t)} = \lambda \implies T'(t) = \lambda T(t) = -n^2T(t) \implies T(t) = Ce^{-n^2t}
+    \]
+\end{solution}
+
+
+\end{document}

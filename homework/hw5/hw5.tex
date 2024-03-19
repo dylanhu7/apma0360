@@ -64,9 +64,9 @@ Solve
 \[
     \begin{cases}
         \begin{aligned}
-            u_t - u_{xx}        & = 0,   &  & 0 < x < \pi, & t > 0, \\
+            u_t - u_{xx}            & = 0,   &  & 0 < x < \pi, & t > 0, \\
             u_x(0, t) = u_x(\pi, t) & = 0,   &  & t > 0,                \\
-            u(x, 0)             & = x^2, &  & 0 < x < \pi.
+            u(x, 0)                 & = x^2, &  & 0 < x < \pi.
         \end{aligned}
     \end{cases}
 \]
@@ -75,33 +75,110 @@ explicitly.
 
 \begin{solution}
     \[u(x, t) = X(x)T(t)\]
-    Using the heat equation, we have
+    We recall from lecture that the solution to \(X''(x) = \lambda X(x)\) with the von Neumann boundary conditions is
     \[
-        X(x)T'(t) - X''(x)T(t) = 0 \implies \frac{T'(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda
+        X(x) = c \cos(nx), \quad n \geq 0
     \]
-    As in HW4, we have the following eigenvalue problem
-    \[
-        \begin{cases}
-            \begin{aligned}
-                X''(x) + \lambda X(x) & = 0, &  & 0 < x < \pi, \\
-                X'(0) = X'(\pi)       & = 0.
-            \end{aligned}
-        \end{cases}
-    \]
-    We recall that in the case of \(\lambda = 0\), we have \(X(x) = a_0\) and in the case of \(\lambda < 0\), we have \(X(x) = a\cos(\omega x) + b\sin(\omega x)\) where \(\lambda = -\omega^2\) and \(\omega \in \mathbb{R}^+\). Using the boundary conditions:
-    \[
-        \begin{cases}
-            \begin{aligned}
-                X'(0) = 0 & \implies -a\omega\sin(0) + b\omega\cos(0) = 0 \implies b\omega = 0 \implies b = 0, \\
-                X'(\pi) = 0 & \implies -a\omega\sin(\omega\pi) = 0 \implies \sin(\omega\pi) = 0 \implies \omega = n, n \in \mathbb{N}.
-            \end{aligned}
-        \end{cases}
-    \]
-    We now turn to the ODE in \(T(t)\):
-    \[
-        \frac{T'(t)}{T(t)} = \lambda \implies T'(t) = \lambda T(t) = -n^2T(t) \implies T(t) = Ce^{-n^2t}
-    \]
+    where \(c\) is a constant and \(\lambda = -n^2\). Then we also have
+    \[T'(t) = \lambda T(t) \implies T(t) = e^{\lambda t} = e^{-n^2t}\]
+    So the general solution is
+    \[u(x, t) = \sum_{n=0}^\infty a_n \cos(nx) e^{-n^2t}\]
+    We can solve for the \(c_n\) using the initial condition:
+    \[u(x, 0) = \sum_{n=0}^\infty a_n \cos(nx) = x^2\]
+    We recognize the sum as a Fourier series and solve for \(a_n\):
+    \[a_n = \frac{2}{\pi} \int_0^\pi x^2 \cos(nx) \dd x = \frac{2}{\pi} \left[\frac{2x^2}{n^2} \sin(nx) + \frac{2}{n}x\cos(nx)\right]_0^\pi = \frac{4}{n^2}(-1)^n\]
+    We notice that for \(n = 0\) our solution is undefined, so we must add the \(n = 0\) term separately:
+    \[a_0 = \frac{1}{\pi} \int_0^\pi x^2 \dd x = \frac{1}{\pi} \left[\frac{x^3}{3}\right]_0^\pi = \frac{\pi^2}{3}\]
+    So the solution is
+    \[u(x, t) = \frac{\pi^2}{3} + \sum_{n=1}^\infty \frac{4}{n^2}(-1)^n \cos(nx) e^{-n^2t}\]
 \end{solution}
+
+\pagebreak
+
+\begin{problem}
+Write the Fourier sine series (as \(\sum a_n \sin(nx)\)) of the function
+\[f(x) = \begin{cases}
+        \begin{aligned}
+            -1, &  & 0 < x < \frac{\pi}{2},   \\
+            1,  &  & \frac{\pi}{2} < x < \pi.
+        \end{aligned}
+    \end{cases}\]
+For each \(n \in \mathbb{N}\), what is the value \(a_n \sin(n\pi/2)\)?
+
+You can separate the cases when \(n = 4k, 4k+1, 4k+2, 4k+3\) for \(k \in \mathbb{N} \cup \{0\}\).
+\end{problem}
+\begin{solution}
+    \[f(x) = \sum_{n=1}^\infty a_n \sin(nx)\]
+    \begin{align*}
+        a_n & = \frac{2}{\pi} \int_0^\pi f(x) \sin(nx) \dd x                                                                                                  \\
+            & = \frac{2}{\pi} \left[\int_0^{\pi/2} (-1)\sin(nx) \dd x + \int_{\pi/2}^\pi \sin(nx) \dd x\right]                                              \\
+            & = \frac{2}{\pi} \left[\frac{1}{n} \cos(nx)\Big|_0^{\pi/2} - \frac{1}{n} \cos(nx)\Big|_{\pi/2}^\pi\right]                                      \\
+            & = \frac{2}{\pi} \left[\frac{\cos(n\pi/2)}{n} - \frac{\cos(0)}{n} - \frac{\cos(n\pi)}{n} + \frac{\cos(n\pi/2)}{n}\right]                    \\
+            & = \frac{2}{\pi} \left[\frac{2\cos(n\pi/2) - (-1)^n - 1}{n}\right]                                                                           \\
+    \end{align*}
+    We now have
+    \[f(x) = \sum_{n=1}^\infty \frac{2}{\pi} \left[\frac{2\cos(n\pi/2) - (-1)^n - 1}{n}\right] \sin(nx)\]
+    We can separate the cases when \(n = 4k, 4k+1, 4k+2, 4k+3\) for \(k \in \mathbb{N} \cup \{0\}\).
+
+    \textbf{Case 1:} \(n = 4k\) (note that we can ignore \(k = 0\) in this case since \(n = 0\) is not in the sum)
+    \[a_n \sin(n\pi/2) = \frac{2}{\pi} \left[\frac{2\cos(2k\pi) - (-1)^{4k} - 1}{4k}\right]\sin(2k\pi) = \frac{2}{\pi} \left[\frac{2 - 1 - 1}{4k}\right]\sin(2k\pi) = 0\]
+
+    \textbf{Case 2:} \(n = 4k+1\)
+    \[a_n \sin(n\pi/2) = \frac{2}{\pi} \left[\frac{2\cos(2k\pi + \pi/2) - (-1)^{4k+1} - 1}{4k+1}\right]\sin(2k\pi + \pi/2) = \frac{2}{\pi} \left[\frac{2(0) + 1 - 1}{4k+1}\right]\sin(2k\pi + \pi/2) = 0\]
+
+    \textbf{Case 3:} \(n = 4k+2\)
+    \[a_n \sin(n\pi/2) = \frac{2}{\pi} \left[\frac{2\cos(2k\pi + \pi) - (-1)^{4k+2} - 1}{4k+2}\right]\sin(2k\pi + \pi) = \frac{2}{\pi} \left[\frac{2(-1) - 1 - 1}{4k+2}\right](0) = 0\]
+
+    \textbf{Case 4:} \(n = 4k+3\)
+    \[a_n \sin(n\pi/2) = \frac{2}{\pi} \left[\frac{2\cos(2k\pi + 3\pi/2) - (-1)^{4k+3} - 1}{4k+3}\right]\sin(2k\pi + 3\pi/2) = \frac{2}{\pi} \left[\frac{2(0) - (-1) - 1}{4k+3}\right]\sin(2k\pi + 3\pi/2) = 0\]
+
+    Therefore, we have \(a_n \sin(n\pi/2) = 0\) for all \(n \in \mathbb{N}\).
+
+
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+    Solve
+    \[
+        \begin{cases}
+            \begin{aligned}
+                u_{tt} - u_{xx} & = 0, &  & 0 < x < \pi, & t > 0, \\
+                u(0, t) = u(\pi, t) & = 0, &  & t > 0, \\
+                u(x, 0) & = x^2, &  & 0 < x < \pi, \\
+                u_t(x, 0) & = sin(2x), &  & 0 < x < \pi.
+            \end{aligned}
+        \end{cases}
+    \]
+    explicitly.
+\end{problem}
+\begin{solution}
+    \[u(x, t) = X(x)T(t)\]
+    \[\frac{T''(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda\]
+    Considering the ODE in \(x\):
+    \textbf{Case 1:} \(\lambda = 0\)
+    \[X''(x) = 0 \implies X(x) = a_1 + a_2x\]
+    Applying the boundary conditions:
+    \[X(0) = a_1 = 0 \implies a_1 = 0\]
+    \[X(\pi) = a_1 + a_2\pi = 0 \implies a_2 = 0\]
+
+    \textbf{Case 2:} \(\lambda = -\omega^2, \omega > 0\)
+    \[X''(x) = -\omega^2X(x) \implies X(x) = a_1\cos(\omega x) + a_2\sin(\omega x)\]
+    Applying the boundary conditions:
+    \[X(0) = a_1 = 0 \implies a_1 = 0\]
+    \[X(\pi) = a_2\sin(\omega \pi) = 0 \implies \omega = n, \quad n \in \mathbb{N}\]
+
+    So the general solution for \(X(x)\) is
+    \[X(x) = \sum_{n=1}^\infty a_n\sin(nx)\]
+
+    \[T''(t) = -n^2T(t) \implies T(t) = c_1\cos(nt) + c_2\sin(nt)\]
+    So the general solution is
+    \[u(x, t) = \sum_{n=1}^\infty \left(a_n\sin(nx) + b_n\sinh(nx)\right)\left(c_1\cos(nt) + c_2\sin(nt)\right)\]
+
+\end{solution}
+
 
 
 \end{document}

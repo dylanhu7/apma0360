@@ -1,0 +1,118 @@
+\documentclass[plain]{pset}
+\usepackage{dylan}
+
+\newcommand{\p}{\partial}
+% \newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dv}[3][]{\frac{\dd^{#1} #2}{\dd #3^{#1}}}
+\newcommand{\pdv}[3][]{\frac{\p^{#1} #2}{\p #3^{#1}}}
+\newcommand{\del}{\nabla}
+
+\title{Homework 6}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{April 7, 2024}
+
+\begin{document}
+
+\begin{multicols}{2}
+    \raggedcolumns{}
+    \maketitle
+    \columnbreak{}
+    \tableofcontents
+\end{multicols}
+
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+
+\pagebreak
+
+\begin{problem}
+Assume that \(H(x, t),\ I(x,t)\) satisfy
+\begin{align*}
+    H_t & = -bHI,                     \\
+    I_t & = bHI - \gamma I + DI_{xx},
+\end{align*}
+Define
+\[\tau \coloneqq \gamma t, \quad h \coloneqq \frac{H}{N}, \quad i \coloneqq \frac{I}{N}, \quad R_0 \coloneqq \frac{bN}{\gamma}, \quad d \coloneqq \frac{D}{\gamma},\]
+where \(b, \gamma, N, D\) are some positive constants. Show that \(h(x,\tau),\ i(x, \tau)\) satisfy the system
+\begin{align*}
+    h_\tau & = -R_0hi,              \\
+    i_\tau & = R_0hi - i + di_{xx}.
+\end{align*}
+\textit{Hint: chain rule.}
+\end{problem}
+\begin{solution}
+    \begin{align*}
+        h_\tau & = \pdv{h}{\tau}                                                                                        \\
+               & = \pdv{h}{t}\pdv{t}{\tau}                                                                              \\
+               & = \left(\pdv{}{t}\left(\frac{H}{N}\right)\right)\frac{1}{\gamma}                                       \\
+               & = \frac{1}{N}\pdv{H}{t}\frac{1}{\gamma}                                                                \\
+               & = \frac{1}{N}\left(-bHI\right)\frac{1}{\gamma}                                                         \\
+               & = -\frac{bHI}{N}\frac{R_0}{bN}                                                                         \\
+               & = -R_0 \frac{H}{N}\frac{I}{N}                                                                          \\
+               & = -R_0 hi                                                                                              \\
+               &                                                                                                        \\
+        i_\tau & = \pdv{i}{\tau}                                                                                        \\
+               & = \pdv{i}{t}\pdv{t}{\tau}                                                                              \\
+               & = \left(\pdv{}{t}\left(\frac{I}{N}\right)\right)\frac{1}{\gamma}                                       \\
+               & = \frac{1}{N}\pdv{I}{t}\frac{1}{\gamma}                                                                \\
+               & = \frac{1}{N}\left(bHI - \gamma I + DI_{xx}\right)\frac{1}{\gamma}                                     \\
+               & = \frac{bHI}{N}\frac{R_0}{bN} - \frac{\gamma I}{N}\frac{1}{\gamma} + \frac{DI_{xx}}{N}\frac{1}{\gamma} \\
+               & = R_0 hi - \frac{I}{N} + \frac{DI_{xx}}{N\gamma}                                                       \\
+               & = R_0 hi - i + d\frac{I_{xx}}{N}                                                                       \\
+               & = R_0 hi - i + di_{xx} \quad \qquad \left(i_{xx} = \frac{I_{xx}}{N}\right)
+    \end{align*}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+For \((x, y) \neq (0, 0)\), compute the Laplacian of
+\[u(x, y) = \ln\left(x^2 + y^2\right)\]
+and conclude whether it satisfies the Laplace equation for \((x, y) \neq (0, 0)\).
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Use separation of variables to solve
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{xx} + u_{yy} & = 0,             &  & 0 < x, y < \pi, \\
+            u_y(x, 0)       & = 0,             &  & 0 < x < \pi,    \\
+            u_y(x, \pi)     & = 0,             &  & 0 < x < \pi,    \\
+            u(0, y)         & = 0,             &  & 0 < y < \pi,    \\
+            u(\pi, y)       & = 1 + 3\cos(2y), &  & 0 < y < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Use separation of variables to solve
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{xx} + u_{yy} & = 0,   &  & 0 < x, y < \pi, \\
+            u(x, 0)         & = 0,   &  & 0 < x < \pi,    \\
+            u(x, \pi)       & = 100, &  & 0 < x < \pi,    \\
+            u(0, y)         & = 0,   &  & 0 < y < \pi,    \\
+            u(\pi, y)       & = 100, &  & 0 < y < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\end{document}

@@ -306,16 +306,25 @@ Use separation of variables to solve
 
     With the \(u_x(\pi, y) = 0\) boundary condition:
     \[u_x(\pi, y) = \sum_{n=1}^\infty n\bigl(a_n\cosh(n\pi) + b_n\sinh(n\pi)\bigr)\sin(ny) = 0\]
-    We know that the \(n\) factor is strictly positive, and we would like to assume \(\sin(ny) \neq 0\) is not identically 0 in order to avoid trivial solutions. Therefore, we must have
-    \[\sum_{n=1}^\infty a_n\cosh(n\pi) + b_n\sinh(n\pi) = 0\]
-    We know that \(a_k = 0\) for \(k \neq 2\), so we have
-    \[\frac{1}{2}\cosh(2\pi) + \sum_{n=1}^\infty b_n\sinh(n\pi) = 0\]
 
-    We can choose \(b_k = 0\) for all \(k \neq 2\):
+    We can let \(c_n = n\bigl(a_n\cosh(n\pi) + b_n\sinh(n\pi)\bigr)\) and rewrite it as
+    \[\sum_{n=1}^\infty c_n \sin(ny) = 0\]
+    which is a Fourier sine series that implies \(c_n = 0\) for all \(n\).
+
+    Now, we have
+    \[c_n = n\bigl(a_n\cosh(n\pi) + b_n\sinh(n\pi)\bigr) = 0\]
+    However, we know that \(n\) is strictly positive, so we must have
+    \[a_n\cosh(n\pi) + b_n\sinh(n\pi) = 0\]
+
+    From earlier, we recall that \(a_2 = \frac{1}{2}\) and \(a_k = 0\) for \(k \neq 2\). Therefore, \(b_k = 0\) for \(k \neq 2\), and \(b_2 < 0\). We can solve for \(b_2\):
     \[\frac{1}{2}\cosh(2\pi) + b_2\sinh(2\pi) = 0\]
+    \[b_2 = -\frac{1}{2}\frac{\cosh(2\pi)}{\sinh(2\pi)} = -\frac{1}{2}\coth(2\pi)\]
 
-    Then \(b_2 = -\frac{\cosh(2\pi)}{2\sinh(2\pi)}\), and a solution to the PDE is
-    \[u(x, y) = \frac{1}{2}\sinh(2x)\sin(2y) - \frac{\cosh(2\pi)}{2\sinh(2\pi)}\cosh(2x)\sin(2y).\]
+    Therefore, the solution to the PDE is
+    \begin{align*}
+        u(x, y) & = \frac{1}{2}\sinh(2x) - \frac{1}{2}\frac{\cosh(2\pi)}{\sinh(2\pi)}\cosh(2x)\sin(2y) \\
+                & = \frac{1}{2}\sinh(2x) - \frac{1}{2}\coth(2\pi)\cosh(2x)\sin(2y).
+    \end{align*}
 \end{solution}
 
 \end{document}

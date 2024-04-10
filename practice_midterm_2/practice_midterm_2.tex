@@ -254,19 +254,19 @@ Find a system of ODEs for \(U\) and \(V\), where \(U, V\) are the traveling wave
 \pagebreak
 
 \begin{problem}
-    Use separation of variables to solve
-    \[
-        \begin{cases}
-            \begin{aligned}
-                u_{xx} + u_{yy} & = 0, &  & 0 < x, y < \pi, \\
-                u(x, 0)         & = 0, &  & 0 < x < \pi,    \\
-                u(x, \pi)       & = 0, &  & 0 < x < \pi,    \\
-                u_x(0, y)       & = \sin(2y), &  & 0 < y < \pi,    \\
-                u_x(\pi, y)     & = 0, &  & 0 < y < \pi,    \\
-            \end{aligned}
-        \end{cases}
-    \]
-    \textbf{Note:} \((\cosh(x))' = \sinh(x)\), \((\sinh(x))' = \cosh(x)\). No negative signs for the derivatives of hyperbolic sine/cosine functions.
+Use separation of variables to solve
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{xx} + u_{yy} & = 0,        &  & 0 < x, y < \pi, \\
+            u(x, 0)         & = 0,        &  & 0 < x < \pi,    \\
+            u(x, \pi)       & = 0,        &  & 0 < x < \pi,    \\
+            u_x(0, y)       & = \sin(2y), &  & 0 < y < \pi,    \\
+            u_x(\pi, y)     & = 0,        &  & 0 < y < \pi,    \\
+        \end{aligned}
+    \end{cases}
+\]
+\textbf{Note:} \((\cosh(x))' = \sinh(x)\), \((\sinh(x))' = \cosh(x)\). No negative signs for the derivatives of hyperbolic sine/cosine functions.
 \end{problem}
 
 \begin{solution}
@@ -277,9 +277,9 @@ Find a system of ODEs for \(U\) and \(V\), where \(U, V\) are the traveling wave
     \[
         \begin{cases}
             \begin{aligned}
-                Y''(y) &= \lambda Y(y), \\
-                Y(0)                 & = 0, \\
-                Y(\pi)               & = 0.
+                Y''(y) & = \lambda Y(y), \\
+                Y(0)   & = 0,            \\
+                Y(\pi) & = 0.
             \end{aligned}
         \end{cases}
     \]
@@ -316,7 +316,6 @@ Find a system of ODEs for \(U\) and \(V\), where \(U, V\) are the traveling wave
 
     Then \(b_2 = -\frac{\cosh(2\pi)}{2\sinh(2\pi)}\), and a solution to the PDE is
     \[u(x, y) = \frac{1}{2}\sinh(2x)\sin(2y) - \frac{\cosh(2\pi)}{2\sinh(2\pi)}\cosh(2x)\sin(2y).\]
-
-
 \end{solution}
+
 \end{document}

@@ -1,0 +1,1 @@
+The LaTeX documents in this repository must be compiled with `pset.cls` and `dylanhu.sty` available. You can find these files [in this repository](https://github.com/dylanhu7/tex) and copy them to the same directory as the LaTeX document you are compiling.

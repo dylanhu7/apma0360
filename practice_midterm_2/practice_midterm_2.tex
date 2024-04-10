@@ -170,7 +170,7 @@ using separation of variables.
     Comparing terms, we see that \(b_4 = \frac{1}{8}\), \(b_5 = \frac{1}{2}\), and \(b_k = 0\) for \(k \neq 4, 5\).
 
     Therefore, the solution to the PDE is
-    \[u(x, t) = \frac{1}{8}\sin(4x) + \frac{1}{2}\sin(5x) + \sum_{n=1}^\infty (-1)^{n+1} \frac{2}{n}\cos(2nt)\sin(nx).\]
+    \[u(x, t) = \frac{1}{8}\sin(8t)\sin(4x) + \frac{1}{2}\sin(10t)\sin(5x) + \sum_{n=1}^\infty (-1)^{n+1} \frac{2}{n}\cos(2nt)\sin(nx).\]
 \end{solution}
 
 \pagebreak
@@ -305,10 +305,16 @@ Find a system of ODEs for \(U\) and \(V\), where \(U, V\) are the traveling wave
     With the \(u_x(\pi, y) = 0\) boundary condition:
     \[u_x(\pi, y) = \sum_{n=1}^\infty n\bigl(a_n\cosh(n\pi) + b_n\sinh(n\pi)\bigr)\sin(ny) = 0\]
     We know that the \(n\) and \(\sin(ny)\) factors are strictly positive (as \(0 < y < \pi\)), so
-    \[\sum_{n=1}^\infty a_n\cosh(nx) + b_n\sinh(nx) = 0\]
+    \[\sum_{n=1}^\infty a_n\cosh(n\pi) + b_n\sinh(n\pi) = 0\]
     We know that \(a_k = 0\) for \(k \neq 2\), so we have
-    \[\frac{1}{2}\cosh(2x) + \sum_{n=1}^\infty b_n\sinh(nx) = 0\]
+    \[\frac{1}{2}\cosh(2\pi) + \sum_{n=1}^\infty b_n\sinh(n\pi) = 0\]
 
-    Hmm...
+    We can choose \(b_k = 0\) for all \(k \neq 2\):
+    \[\frac{1}{2}\cosh(2\pi) + b_2\sinh(2\pi) = 0\]
+
+    Then \(b_2 = -\frac{2\cosh(2\pi)}{\sinh(2\pi)}\), and a solution to the PDE is
+    \[u(x, y) = \frac{1}{2}\sinh(2x)\sin(2y) - \frac{2\cosh(2\pi)}{\sinh(2\pi)}\cosh(2x)\sin(2y).\]
+
+
 \end{solution}
 \end{document}

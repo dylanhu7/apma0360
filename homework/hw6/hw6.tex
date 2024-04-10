@@ -1,11 +1,5 @@
 \documentclass[plain]{pset}
-\usepackage{dylan}
-
-\newcommand{\p}{\partial}
-% \newcommand{\dd}{\mathop{}\!\mathrm{d}}
-\newcommand{\dv}[3][]{\frac{\dd^{#1} #2}{\dd #3^{#1}}}
-\newcommand{\pdv}[3][]{\frac{\p^{#1} #2}{\p #3^{#1}}}
-\newcommand{\del}{\nabla}
+\usepackage{dylanhu}
 
 \title{Homework 6}
 \author{Dylan Hu}
@@ -15,15 +9,7 @@
 
 \begin{document}
 
-\begin{multicols}{2}
-    \raggedcolumns{}
-    \maketitle
-    \columnbreak{}
-    \tableofcontents
-\end{multicols}
-
-\setlength{\parskip}{1em}
-\setlength{\parindent}{0pt}
+\maketitle
 
 \pagebreak
 
@@ -240,10 +226,10 @@ Use separation of variables to solve
 
     As it is a constant, we can let \(b_n \sinh(n\pi) = \tilde{b}_n\). Then
     \begin{align*}
-        \tilde{b}_n & = \frac{2}{\pi} \int_0^\pi 100 \cdot \sin(nx) \dd x                                                                                                              \\
-                    & = \frac{200}{\pi} \int_0^\pi \sin(nx) \dd x                                                                                                                        \\
-                    & = \frac{200}{\pi} \left[-\frac{1}{n}\cos(nx)\right]_0^\pi                                                                                                         \\
-                    & = \frac{200}{\pi} \left[-\frac{1}{n}\cos(n\pi) + \frac{1}{n}\cos(0)\right]                                                                                         \\
+        \tilde{b}_n & = \frac{2}{\pi} \int_0^\pi 100 \cdot \sin(nx) \dd x                        \\
+                    & = \frac{200}{\pi} \int_0^\pi \sin(nx) \dd x                                \\
+                    & = \frac{200}{\pi} \left[-\frac{1}{n}\cos(nx)\right]_0^\pi                  \\
+                    & = \frac{200}{\pi} \left[-\frac{1}{n}\cos(n\pi) + \frac{1}{n}\cos(0)\right] \\
                     & = \frac{200}{\pi} \left[\frac{1 - (-1)^n}{n}\right].
     \end{align*}
 
@@ -261,7 +247,7 @@ Use separation of variables to solve
     \subsubsection*{Combining the solutions}
     By the superposition principle, the solution to the original problem is
     \begin{align*}
-        u(x, y) & = u_1(x, y) + u_2(x, y)                                                                                                       \\
+        u(x, y) & = u_1(x, y) + u_2(x, y)                                                                                                                                                                                               \\
                 & = \frac{200}{\pi}\sum_{n=1}^\infty \left[\frac{1 - (-1)^n}{n}\right] \frac{\sinh(ny)}{\sinh(n\pi)}\sin(nx) + \frac{200}{\pi}\sum_{n=1}^\infty \left[\frac{1 - (-1)^n}{n}\right] \frac{\sinh(nx)}{\sinh(n\pi)}\sin(ny) \\
                 & = \frac{200}{\pi}\sum_{n=1}^\infty \left[\frac{1 - (-1)^n}{n}\right] \frac{\sinh(ny)\sin(nx) + \sinh(nx)\sin(ny)}{\sinh(n\pi)}.
     \end{align*}

@@ -88,22 +88,3 @@
         \end{innerproblem}
     }
 \fi
-
-% % Define a new counter for Problem
-% \newcounter{Problem}
-% \renewcommand{\theProblem}{\arabic{Problem}}
-
-% % Define the Problem environment
-% \NewDocumentEnvironment{problem}{O{subsection} o}{%
-%     \IfNoValueTF{#2}{%
-%         \refstepcounter{Problem}%
-%         \paragraph{Problem \theProblem.}%
-%         \addcontentsline{toc}{#1}{Problem \theProblem}%
-%     }{%
-%         \paragraph{Problem #2.}%
-%         \addcontentsline{toc}{#1}{Problem #2}%
-%     }%
-% }{%
-%     \par
-% }
-

@@ -341,8 +341,10 @@ Use separation of variables and go through all 3 cases to write the solution as 
     \[X'(x) = -a_1\omega\sin(\omega x) + a_2\omega\cos(\omega x)\]
     and the boundary conditions give us
     \[X'(0) = -a_1\omega\sin(0) + a_2\omega\cos(0) = 0 \implies a_2 = 0\]
-    \[X(\pi) = a_1\cos(\omega\pi) = 0 \implies \omega = \frac{n}{2}\]
-    where \(n \in \mathbb{Z}^+\). So \(X(x) = a_1\cos\left(\frac{n}{2}x\right)\) and \(\lambda = -\frac{n^2}{4}\).
+    \[X(\pi) = a_1\cos(\omega\pi) = 0 \implies \omega = n + \frac{1}{2}\]
+    where \(n = 0, 1, 2, \ldots.\)
+
+    So \(X(x) = a_1\cos\left(\left(n + \frac{1}{2}\right)x\right)\) and \(\lambda = -\frac{n^2}{4}\).
 
     We now turn to the ODE for \(T(t)\):
     \[\frac{T'(t)}{T(t)} = \lambda = -\frac{n^2}{4}\]

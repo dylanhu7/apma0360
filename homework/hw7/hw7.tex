@@ -42,8 +42,8 @@ Find the solution to the boundary value problem on a wedge:
     \[
         \begin{cases}
             \begin{aligned}
-                \Theta'' + \lambda\Theta & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
-                \Theta(0)                & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
+                \Theta'' + \lambda\Theta         & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
+                \Theta(0)                        & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
                 \Theta\left(\frac{\pi}{2}\right) & = 0, &  & 0 < \theta < \frac{\pi}{2}.
             \end{aligned}
         \end{cases}
@@ -55,7 +55,7 @@ Find the solution to the boundary value problem on a wedge:
     \[
         \begin{cases}
             \begin{aligned}
-                \Theta(0)                & = A + B = 0, \\
+                \Theta(0)                        & = A + B = 0,                                \\
                 \Theta\left(\frac{\pi}{2}\right) & = Ae^{\omega\pi/2} + Be^{-\omega\pi/2} = 0.
             \end{aligned}
         \end{cases}
@@ -74,9 +74,9 @@ Find the solution to the boundary value problem on a wedge:
     \[\frac{r^2R'' + rR'}{R} = 4n^2 \implies r^2R'' + rR' - 4n^2R = 0, \quad n = 1, 2, 3, \ldots\]
     We recognize this as a Cauchy-Euler equation, and we make the substitution \(R(r) = r^\alpha\).
     \begin{align*}
-        r^2\alpha(\alpha - 1)r^{\alpha - 2} + r\alpha r^{\alpha - 1} - 4n^2r^\alpha &= 0 \\
-        r^\alpha(\alpha^2 - \alpha + \alpha - 4n^2) &= 0 \\
-        \alpha^2 - 4n^2 &= 0 \implies \alpha = \pm 2n.
+        r^2\alpha(\alpha - 1)r^{\alpha - 2} + r\alpha r^{\alpha - 1} - 4n^2r^\alpha & = 0                           \\
+        r^\alpha(\alpha^2 - \alpha + \alpha - 4n^2)                                 & = 0                           \\
+        \alpha^2 - 4n^2                                                             & = 0 \implies \alpha = \pm 2n.
     \end{align*}
     This gives us two linearly independent solutions \(r^{2n}\) and \(r^{-2n}\), so the general solution is
     \[R(r) = Cr^{-2n} + Dr^{2n}, \quad n = 1, 2, 3, \ldots\]
@@ -103,87 +103,136 @@ Find the solution to the boundary value problem on a wedge:
 \pagebreak
 
 \begin{problem}
-    Find the solution to the following boundary value problem on an annulus:
-    \[
-        \begin{cases}
-            \begin{aligned}
-                \Delta u     & = 0, &  & 1 < r < 2, \quad 0 < \theta < 2\pi, \\
-                u(1, \theta) & = \sin(\theta), &  & 0 < \theta < 2\pi, \\
-                u(2, \theta) & = \cos(\theta), &  & 0 < \theta < 2\pi.
-            \end{aligned}
-        \end{cases}
-    \]
+Find the solution to the following boundary value problem on an annulus:
+\[
+    \begin{cases}
+        \begin{aligned}
+            \Delta u     & = 0,            &  & 1 < r < 2, \quad 0 < \theta < 2\pi, \\
+            u(1, \theta) & = \sin(\theta), &  & 0 < \theta < 2\pi,                  \\
+            u(2, \theta) & = \cos(\theta), &  & 0 < \theta < 2\pi.
+        \end{aligned}
+    \end{cases}
+\]
+\begin{hint}
+    \emph{Since we are working on an annulus, we do not need boundedness condition for \(u\) at \(r = 0\).}
+\end{hint}
 \end{problem}
 \begin{solution}
     As in the previous problem, we arrive at
     \[\frac{r^2R'' + rR'}{R} = -\frac{\Theta''}{\Theta} = \lambda.\]
-    We solve the ODE in \(R(r)\) first, as we have boundary conditions in \(r\).
-    \[\frac{r^2R'' + rR'}{R} = \lambda \implies r^2R'' + rR' - \lambda R = 0.\]
-    Again, we recognize this as a Cauchy-Euler equation, and we make the substitution \(R(r) = r^\alpha\).
-    \begin{align*}
-        r^2\alpha(\alpha - 1)r^{\alpha - 2} + r\alpha r^{\alpha - 1} - \lambda r^\alpha &= 0 \\
-        r^\alpha(\alpha^2 - \alpha + \alpha - \lambda) &= 0 \\
-        \alpha^2 - \lambda &= 0 \implies \alpha = \pm\sqrt{\lambda}.
-    \end{align*}
-    This gives us two linearly independent solutions \(r^{\sqrt{\lambda}}\) and \(r^{-\sqrt{\lambda}}\). Since \(\lambda\) may be positive, negative, or zero, we have three cases to consider. Let \(\lambda = \omega^2\) where \(\omega > 0\).
-    \begin{enumerate}
-        \item \(\lambda = 0 \implies \alpha = 0 \leadsto R(r) = A \ln(r) + B\).
-        \item \(\lambda < 0 \implies \alpha = \pm i\omega \leadsto R(r) = C\cos(\omega\ln(r)) + D\sin(\omega\ln(r))\).\footnote{We obtain this by writing \(r^{\pm i\omega} = e^{\ln(r^{\pm i\omega})} = e^{\pm i\omega\ln(r)} = \cos(\omega\ln(r)) \pm i\sin(\omega\ln(r)).\)}
-        \item \(\lambda > 0 \implies \alpha = \pm \omega \leadsto R(r) = Er^{-\omega} + Fr^{\omega}\).
-    \end{enumerate}
-    In the first case, we want the solution to be bounded at \(r = 0\), so we must have \(A = 0\).
+    We solve the ODE in \(\theta\) first with the implicit periodic boundary conditions. We recall from lecture that the general solution is
+    \[\Theta(\theta) = A_n\cos(n\theta) + B_n\sin(n\theta), \quad n = 0, 1, 2, \ldots, \quad \lambda = n^2.\]
 
-    In the second case, we can apply the boundary condition \(u(1, \theta) = \sin(\theta)\). We have that \(R(1) = C\).
-
-\end{solution}
-
-\pagebreak
-
-\begin{problem}
-    Consider the following harmonic function in a unit disk with boundary value:
-    \[
+    We also recall that the general solution for \(R(r)\) given \(\lambda = n^2\) is
+    \[R =
         \begin{cases}
             \begin{aligned}
-                \Delta u     & = 0, &  & 0 < r < 1, \quad 0 < \theta < 2\pi, \\
-                u(1, \theta) & = 1 + 3\sin(2\theta), &  & 0 < \theta < 2\pi.
+                 & C_n r^{-n} + D_nr^n, &  & n = 1, 2, 3, \ldots, \\
+                 & C_0\ln(r) + D,       &  & n = 0.
             \end{aligned}
         \end{cases}
     \]
-    \textbf{Without} solving the solution explicitly, answer the following questions:
-    \begin{enumerate}[(a)]
-        \item What is the maximum value of \(u\) in the unit disk \(\{x^2 + y^2 \leq 1\}\)?
-        \item What is the value of \(u\) at the origin?
-    \end{enumerate}
-\end{problem}
-\begin{solution}
+    Here, we do not set \(C_n = 0\) or \(C_0 = 0\) as we do not need to enforce boundedness at \(r = 0\) since the annulus is bounded by \(1 < r < 2\).
 
+    The general solution for \(u(r, \theta)\) is
+    \[u(r, \theta) = A + B\ln(r) + \sum_{n = 1}^\infty \left[A_n\cos(n\theta) + B_n\sin(n\theta)\right]\left[C_nr^{-n} + D_nr^n\right]\]
+
+    Using the first boundary condition, we have:
+    \[u(1, \theta) = A + \sum_{n = 1}^\infty \left[A_n\cos(n\theta) + B_n\sin(n\theta)\right]\left[C_n + D_n\right] = \sin(\theta).\]
+    We recognize this as a Fourier series, and we can compute the Fourier coefficients.
+    \[A = \int_0^{2\pi} \sin(\theta) \dd{\theta} = 0\]
+    \[A_n = \frac{1}{\pi}\int_0^{2\pi} \sin(\theta)\cos(n\theta) \dd{\theta} = 0\]
+    \[B_n = \frac{1}{\pi}\int_0^{2\pi} \sin(\theta)\sin(n\theta) \dd{\theta} = \begin{cases} \frac{1}{C_1 + D_1} & n = 1 \\ 0 & n \neq 1 \end{cases}\]
+
+    Now we have
+    \[u(r, \theta) = B\ln(r) + \frac{1}{C_1 + D_1}\sin(\theta)\left[C_1 + D_1\right] = B\ln(r) + \sin(\theta)\]
+
+    Using the second boundary condition, we have:
+    \[u(2, \theta) = B\ln(2) + \sin(\theta) = \cos(\theta) \implies B = \frac{\cos(\theta) - \sin(\theta)}{\ln(2)}\]
+
+    The solution is
+    \[u(r, \theta) = \frac{\ln(r)}{\ln(2)}\bigl(\cos(\theta) - \sin(\theta)\bigr) + \sin(\theta).\]
+
+    % Graph: https://www.desmos.com/3d/5c143829fb
 \end{solution}
 
 \pagebreak
 
 \begin{problem}
-    Let \(\Omega\) be a bounded connected open set. The goal of this problem is to show the uniqueness of harmonic function with Dirichlet boundary condition by an energy method.
-    \begin{enumerate}[(a)]
-        \item Recall that for any vector field \(\overrightarrow{A} = (A_1, A_2)\), \(\Div{\overrightarrow{A}} = A_{1x} + A_{2y}\), and for any scalar function \(f\), \(\nabla f = (f_x, f_y)\). Verify that
-        \[
-            \Div{(u\nabla u)} = u_x^2 + u_y^2 + u\Delta u.
-        \]
-        \item Recall the divergence theorem from multivariable calculus:
-        \[\int_\Omega \Div{\overrightarrow{A}} \dd{x} \dd{y} = \int_{\partial \Omega} \overrightarrow{A} \cdot n \dd{s},\]
-        where \(n\) is the unit outer normal vector on \(\partial \Omega\). Use the divergence theorem with \(\overrightarrow{A} = u\nabla u\) to show that the only function satisfying
-        \[
-            \begin{cases}
-                \begin{aligned}
-                    \Delta u & = 0, &  & \text{in } \Omega, \\
-                    u        & = 0 &  & \text{on } \partial \Omega
-                \end{aligned}
-            \end{cases}
-        \]
-        is \(0\).
-        \end{enumerate}
+Consider the following harmonic function in a unit disk with boundary value:
+\[
+    \begin{cases}
+        \begin{aligned}
+            \Delta u     & = 0,                  &  & 0 < r < 1, \quad 0 < \theta < 2\pi, \\
+            u(1, \theta) & = 1 + 3\sin(2\theta), &  & 0 < \theta < 2\pi.
+        \end{aligned}
+    \end{cases}
+\]
+\textbf{Without} solving the solution explicitly, answer the following questions:
+\begin{enumerate}[(a)]
+    \item What is the maximum value of \(u\) in the unit disk \(\{x^2 + y^2 \leq 1\}\)?
+    \item What is the value of \(u\) at the origin?
+\end{enumerate}
 \end{problem}
 \begin{solution}
+    \leavevmode
+    \begin{enumerate}[(a)]
+        \item By the maximum principle, the maximum value of \(u\) in the unit disk is the maximum value of \(u\) on the boundary. The maximum value of \(u\) on the boundary is \(1 + 3\), so the maximum value of \(u\) in the unit disk is \(4\).
+        \item The origin is the center of the disk, so the value of \(u\) at the origin is the average at the boundary by the mean value property.
+              \begin{align*}
+                   & \frac{1}{2\pi}\int_0^{2\pi} \left(1 + 3\sin(2\theta)\right) \dd{\theta}                            \\
+                   & = \frac{1}{2pi}\int_0^{2\pi} 1 \dd{\theta} + \frac{3}{2\pi}\int_0^{2\pi} \sin(2\theta) \dd{\theta} \\
+                   & = 1 + 0                                                                                            \\
+                   & = 1.
+              \end{align*}
+    \end{enumerate}
+\end{solution}
 
+\pagebreak
+
+\begin{problem}
+Let \(\Omega\) be a bounded connected open set. The goal of this problem is to show the uniqueness of harmonic function with Dirichlet boundary condition by an energy method.
+\begin{enumerate}[(a)]
+    \item Recall that for any vector field \(\overrightarrow{A} = (A_1, A_2)\), \(\Div{\overrightarrow{A}} = A_{1x} + A_{2y}\), and for any scalar function \(f\), \(\nabla f = (f_x, f_y)\). Verify that
+          \[
+              \Div{(u\nabla u)} = u_x^2 + u_y^2 + u\Delta u.
+          \]
+    \item Recall the divergence theorem from multivariable calculus:
+          \[\int_\Omega \Div{\overrightarrow{A}} \dd{x} \dd{y} = \int_{\partial \Omega} \overrightarrow{A} \cdot n \dd{S},\]
+          where \(n\) is the unit outer normal vector on \(\partial \Omega\). Use the divergence theorem with \(\overrightarrow{A} = u\nabla u\) to show that the only function satisfying
+          \[
+              \begin{cases}
+                  \begin{aligned}
+                      \Delta u & = 0, &  & \text{in } \Omega,         \\
+                      u        & = 0  &  & \text{on } \partial \Omega
+                  \end{aligned}
+              \end{cases}
+          \]
+          is \(0\).
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \leavevmode
+    \begin{enumerate}[(a)]
+        \item \leavevmode
+              \begin{align*}
+                  \Div{(u\nabla u)} & = \Div{\left(u\left(u_x, u_y\right)\right)}                            \\
+                                    & = \Div{\left(uu_x, uu_y\right)}                           \\
+                                    & = (uu_x)_x + (uu_y)_y = u_x^2 + uu_{xx} + u_y^2 + uu_{yy} \\
+                                    & = u_x^2 + u_y^2 + u \left(u_{xx} + u_{yy}\right)         \\
+                                    & = u_x^2 + u_y^2 + u\Delta u.
+              \end{align*}
+        \item By the divergence theorem,
+              \[\int_\Omega \Div{(u\nabla u)} \dd{x} \dd{y} = \int_{\partial \Omega} u\nabla u \cdot n \dd{S}.\]
+              Since \(u = 0\) on \(\partial \Omega\), we have
+              \[\int_\Omega \Div{(u\nabla u)} \dd{x} \dd{y} = 0.\]
+              By part (a), we have
+              \[\int_\Omega \left(u_x^2 + u_y^2 + u\Delta u\right) \dd{x} \dd{y} = 0.\]
+              Since \(u\) is harmonic, \(\Delta u = 0\), so we have
+              \[\int_\Omega \left(u_x^2 + u_y^2\right) \dd{x} \dd{y} = 0.\]
+              Since \(u_x^2 + u_y^2 \geq 0\), we must have that \(u_x^2 + u_y^2 = 0\), so \(u_x = u_y = 0\). Thus, \(u\) is constant, and since \(u = 0\) on \(\partial \Omega\), we must have that \(u = 0\) in \(\Omega\).
+
+    \end{enumerate}
 \end{solution}
 
 

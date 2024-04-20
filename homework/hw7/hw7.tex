@@ -1,0 +1,191 @@
+\documentclass[plain]{pset}
+\usepackage{dylanhu}
+
+\title{Homework 7}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{April 21, 2024}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{problem}
+Find the solution to the boundary value problem on a wedge:
+\[
+    \begin{cases}
+        \begin{aligned}
+            \Delta u     & = 0,         &  & 0 < r < 1, \quad 0 < \theta < \pi/2, \\
+            u(r, 0)      & = 0,         &  & 0 < r < 1,                           \\
+            u(r, \pi/2)  & = 0,         &  & 0 < r < 1,                           \\
+            u(1, \theta) & = f(\theta), &  & 0 < \theta < \pi/2.
+        \end{aligned}
+    \end{cases}
+\]
+\begin{hint}
+    \emph{Be careful that \(\theta \in (0, \pi/2)\), we do not have periodic boundary condition in \(\theta\). And the formulas for Fourier coefficients are slightly different than what we have when \(\theta \in (0, \pi)\) or \(\theta \in (0, 2\pi)\).}
+\end{hint}
+\end{problem}
+\begin{solution}
+    First, we recall that the Laplacian in polar coordinates is given by
+    \[
+        \Delta u = u_{rr} + \frac{u_r}{r} + \frac{u_{\theta\theta}}{r^2}.
+    \]
+    Using separation of variables, we assume that \(u(r, \theta) = R(r)\Theta(\theta)\). Then Laplace's equation becomes
+    \[
+        R''\Theta + \frac{R'\Theta}{r} + \frac{R\Theta''}{r^2} = 0 \iff \frac{r^2R'' + rR'}{R} = -\frac{\Theta''}{\Theta} = \lambda.
+    \]
+    The boundary conditions in \(\theta\) give \(\Theta(0) = \Theta\left(\frac{\pi}{2}\right) = 0\). We solve the ODE in \(\theta\) first.
+    \[
+        \begin{cases}
+            \begin{aligned}
+                \Theta'' + \lambda\Theta & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
+                \Theta(0)                & = 0, &  & 0 < \theta < \frac{\pi}{2}, \\
+                \Theta\left(\frac{\pi}{2}\right) & = 0, &  & 0 < \theta < \frac{\pi}{2}.
+            \end{aligned}
+        \end{cases}
+    \]
+
+    \textbf{Case 1:} \(\lambda < 0\). Let \(\lambda = -\omega^2\) where \(\omega > 0\).
+    \[\Theta''(\theta) = \omega^2 \Theta(\theta) \implies \Theta(\theta) = Ae^{\omega\theta} + Be^{-\omega\theta}.\]
+    The boundary conditions give
+    \[
+        \begin{cases}
+            \begin{aligned}
+                \Theta(0)                & = A + B = 0, \\
+                \Theta\left(\frac{\pi}{2}\right) & = Ae^{\omega\pi/2} + Be^{-\omega\pi/2} = 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    By substituting the first equation into the second, we find that \(A\left(e^{\omega\pi/2} - e^{-\omega\pi/2}\right) = 0\), and we see that the only solution is \(A = B = 0 \implies \Theta(\theta) = 0\).
+
+    \textbf{Case 2:} \(\lambda = 0\). Then \(\Theta'' = 0 \implies \Theta(\theta) = A + B\theta\). The boundary conditions give \(A = A + B\frac{\pi}{2} = 0\), and we find that \(A = B = 0 \implies \Theta(\theta) = 0\).
+
+    \textbf{Case 3:} \(\lambda > 0\). Let \(\lambda = \omega^2\) where \(\omega > 0\).
+    \[\Theta''(\theta) = -\omega^2 \Theta(\theta) \implies \Theta(\theta) = A\cos(\omega\theta) + B\sin(\omega\theta).\]
+    Using the boundary conditions:
+    \[\Theta(0) = A = 0, \quad \Theta\left(\frac{\pi}{2}\right) = B\sin\left(\frac{\omega\pi}{2}\right) = 0.\]
+    Then \(\omega\frac{\pi}{2} = n\pi\) for some \(n \in \Z\), and we find that \(\omega = 2n\). Thus, \(\Theta(\theta) = b_n\sin(2n\theta)\) for \(n = 1, 2, 3, \ldots\) and \(\lambda = 4n^2\).
+
+    Now we solve the ODE in \(r\).
+    \[\frac{r^2R'' + rR'}{R} = 4n^2 \implies r^2R'' + rR' - 4n^2R = 0, \quad n = 1, 2, 3, \ldots\]
+    We recognize this as a Cauchy-Euler equation, and we make the substitution \(R(r) = r^\alpha\).
+    \begin{align*}
+        r^2\alpha(\alpha - 1)r^{\alpha - 2} + r\alpha r^{\alpha - 1} - 4n^2r^\alpha &= 0 \\
+        r^\alpha(\alpha^2 - \alpha + \alpha - 4n^2) &= 0 \\
+        \alpha^2 - 4n^2 &= 0 \implies \alpha = \pm 2n.
+    \end{align*}
+    This gives us two linearly independent solutions \(r^{2n}\) and \(r^{-2n}\), so the general solution is
+    \[R(r) = Cr^{-2n} + Dr^{2n}, \quad n = 1, 2, 3, \ldots\]
+    However, we must have that the solution is bounded at \(r = 0\), so we must have \(C = 0\).
+
+    The general solution for \(u(r, \theta)\) is
+    \[u(r, \theta) = \sum_{n = 1}^\infty b_n r^{2n}\sin(2n\theta).\]
+
+    The boundary condition \(u(1, \theta) = f(\theta)\) gives
+    \[f(\theta) = \sum_{n = 1}^\infty b_n\sin(2n\theta).\]
+
+    We wish to find the Fourier coefficients \(b_n\). If we multiply both sides by \(\sin(2k\theta)\) and integrate from \(0\) to \(\pi/2\), we find that
+    \[\int_0^{\pi/2} f(\theta)\sin(2k\theta) \dd{\theta} = \sum_{n = 1}^\infty b_n\int_0^{\pi/2} \sin(2n\theta)\sin(2k\theta) \dd{\theta}.\]
+    We can rewrite the integral on the right-hand side to be from \(0\) to \(\pi\).
+    \[\int_0^{\pi/2} f(\theta)\sin(2k\theta) \dd{\theta} = \sum_{n = 1}^\infty b_n\int_0^{\pi} \sin(n\theta)\sin(k\theta) \dd{\theta}.\]
+    Now we can recall that for the integral on the right hand side
+    \[\int_0^\pi \sin(n\theta)\sin(k\theta) \dd{\theta} = \langle \sin(n\theta), \sin(k\theta) \rangle_{(0,\,\pi)} = \begin{cases} 0 & n \neq k \\ \pi/2 & n = k \end{cases}.\]
+    So we find that
+    \[b_n = \frac{2}{\pi}\int_0^{\pi/2} f(\theta)\sin(2n\theta) \dd{\theta}.\]
+    and the solution is
+    \[u(r, \theta) = \frac{2}{\pi}\sum_{n = 1}^\infty \left[\int_0^{\pi/2} f(\theta)\sin(2n\theta) \dd{\theta}\right] r^{2n}\sin(2n\theta).\]
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+    Find the solution to the following boundary value problem on an annulus:
+    \[
+        \begin{cases}
+            \begin{aligned}
+                \Delta u     & = 0, &  & 1 < r < 2, \quad 0 < \theta < 2\pi, \\
+                u(1, \theta) & = \sin(\theta), &  & 0 < \theta < 2\pi, \\
+                u(2, \theta) & = \cos(\theta), &  & 0 < \theta < 2\pi.
+            \end{aligned}
+        \end{cases}
+    \]
+\end{problem}
+\begin{solution}
+    As in the previous problem, we arrive at
+    \[\frac{r^2R'' + rR'}{R} = -\frac{\Theta''}{\Theta} = \lambda.\]
+    We solve the ODE in \(R(r)\) first, as we have boundary conditions in \(r\).
+    \[\frac{r^2R'' + rR'}{R} = \lambda \implies r^2R'' + rR' - \lambda R = 0.\]
+    Again, we recognize this as a Cauchy-Euler equation, and we make the substitution \(R(r) = r^\alpha\).
+    \begin{align*}
+        r^2\alpha(\alpha - 1)r^{\alpha - 2} + r\alpha r^{\alpha - 1} - \lambda r^\alpha &= 0 \\
+        r^\alpha(\alpha^2 - \alpha + \alpha - \lambda) &= 0 \\
+        \alpha^2 - \lambda &= 0 \implies \alpha = \pm\sqrt{\lambda}.
+    \end{align*}
+    This gives us two linearly independent solutions \(r^{\sqrt{\lambda}}\) and \(r^{-\sqrt{\lambda}}\). Since \(\lambda\) may be positive, negative, or zero, we have three cases to consider. Let \(\lambda = \omega^2\) where \(\omega > 0\).
+    \begin{enumerate}
+        \item \(\lambda = 0 \implies \alpha = 0 \leadsto R(r) = A \ln(r) + B\).
+        \item \(\lambda < 0 \implies \alpha = \pm i\omega \leadsto R(r) = C\cos(\omega\ln(r)) + D\sin(\omega\ln(r))\).\footnote{We obtain this by writing \(r^{\pm i\omega} = e^{\ln(r^{\pm i\omega})} = e^{\pm i\omega\ln(r)} = \cos(\omega\ln(r)) \pm i\sin(\omega\ln(r)).\)}
+        \item \(\lambda > 0 \implies \alpha = \pm \omega \leadsto R(r) = Er^{-\omega} + Fr^{\omega}\).
+    \end{enumerate}
+    In the first case, we want the solution to be bounded at \(r = 0\), so we must have \(A = 0\).
+
+    In the second case, we can apply the boundary condition \(u(1, \theta) = \sin(\theta)\). We have that \(R(1) = C\).
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+    Consider the following harmonic function in a unit disk with boundary value:
+    \[
+        \begin{cases}
+            \begin{aligned}
+                \Delta u     & = 0, &  & 0 < r < 1, \quad 0 < \theta < 2\pi, \\
+                u(1, \theta) & = 1 + 3\sin(2\theta), &  & 0 < \theta < 2\pi.
+            \end{aligned}
+        \end{cases}
+    \]
+    \textbf{Without} solving the solution explicitly, answer the following questions:
+    \begin{enumerate}[(a)]
+        \item What is the maximum value of \(u\) in the unit disk \(\{x^2 + y^2 \leq 1\}\)?
+        \item What is the value of \(u\) at the origin?
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+    Let \(\Omega\) be a bounded connected open set. The goal of this problem is to show the uniqueness of harmonic function with Dirichlet boundary condition by an energy method.
+    \begin{enumerate}[(a)]
+        \item Recall that for any vector field \(\overrightarrow{A} = (A_1, A_2)\), \(\Div{\overrightarrow{A}} = A_{1x} + A_{2y}\), and for any scalar function \(f\), \(\nabla f = (f_x, f_y)\). Verify that
+        \[
+            \Div{(u\nabla u)} = u_x^2 + u_y^2 + u\Delta u.
+        \]
+        \item Recall the divergence theorem from multivariable calculus:
+        \[\int_\Omega \Div{\overrightarrow{A}} \dd{x} \dd{y} = \int_{\partial \Omega} \overrightarrow{A} \cdot n \dd{s},\]
+        where \(n\) is the unit outer normal vector on \(\partial \Omega\). Use the divergence theorem with \(\overrightarrow{A} = u\nabla u\) to show that the only function satisfying
+        \[
+            \begin{cases}
+                \begin{aligned}
+                    \Delta u & = 0, &  & \text{in } \Omega, \\
+                    u        & = 0 &  & \text{on } \partial \Omega
+                \end{aligned}
+            \end{cases}
+        \]
+        is \(0\).
+        \end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+
+
+\end{document}

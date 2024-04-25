@@ -1,0 +1,86 @@
+\documentclass[plain]{pset}
+\usepackage{dylanhu}
+
+\title{Homework 8}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{April 28, 2024}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{problem}
+\leavevmode
+\begin{enumerate}[(a)]
+    \item Construct a twice differentiable function \(v(x,t)\) such that
+          \[v(0,t) = g(t), \quad v_x(\pi, t) = h(t).\]
+    \item Construct a twice differentiable function \(v(x,t)\) such that
+          \[v_x(0,t) = g(t), \quad v_x(\pi, t) = h(t).\]
+\end{enumerate}
+For both parts, show some computations to justify that the functions you construct do
+satisfy those boundary conditions.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve the heat equation with source:
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx}        & = e^{-t}\sin(3x), &  & 0 < x < \pi, & t > 0, \\
+            u(0, t) = u(\pi, t) & = 0,              &  & t > 0,                \\
+            u(x, 0)             & = 1,              &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve the heat equation with inhomogeneous Dirichlet boundary condition:
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t - u_{xx} & = 0, &  & 0 < x < \pi, & t > 0, \\
+            u(0, t)      & = 0, &  & t > 0,                \\
+            u(\pi, t)    & = t, &  & t > 0,                \\
+            u(x, 0)      & = 0, &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve the wave equation with a constant gravitational force:
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{tt} - u_{xx}              & = -1, &  & 0 < x < \pi, & t > 0, \\
+            u(0, t)          = u(\pi, t) & = 0,  &  & t > 0,                \\
+            u(x, 0)          = u_t(x, 0) & = 0,  &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\end{document}

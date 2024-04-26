@@ -25,7 +25,33 @@ For both parts, show some computations to justify that the functions you constru
 satisfy those boundary conditions.
 \end{problem}
 \begin{solution}
+    \leavevmode
+    \begin{enumerate}[(a)]
+        \item We can include a \(\left(1 - \frac{x}{\pi}\right)g(t)\) term which has value \(g(t)\) at \(x = 0\) and \(0\) at \(x = \pi\).
 
+              In order to satisfy the boundary condition \(v_x(\pi, t) = h(t)\), we can solve the ODE in \(x\):
+              \[v_x(\pi, t) = h(t) \implies v(\pi, t) = h(t)x + C(t).\]
+              We can choose \(C(t) = 0\) to satisfy the boundary condition \(v(0,t) = g(t)\).
+              If we were to add the two equations, we would get
+              \[v(x,t) = \left(1 - \frac{x}{\pi}\right)g(t) + h(t)x\]
+              \[v_x(x,t) = -\frac{1}{\pi}g(t) + h(t).\]
+              We see that there is an extra \(-\frac{1}{\pi}g(t)\) term in \(v_x(x,t)\). We can eliminate this by adding a \(\frac{1}{\pi}g(t)x\) term:
+              \[v(x,t) = \left(1 - \frac{x}{\pi}\right)g(t) + h(t)x + \frac{1}{\pi}g(t)x.\]
+              We can verify that this function satisfies the boundary conditions:
+              \[v(0,t) = g(t) + 0 + 0 = g(t),\]
+              \[v_x(\pi, t) = -\frac{1}{\pi}g(t) + h(t) + \frac{1}{\pi}g(t) = h(t).\]
+
+
+        \item We construct a function \(v_x(x,t)\) such that it is a linear interpolation between \(g(t)\) and \(h(t)\) at \(x = 0\) and \(x = \pi\), respectively.
+              \[v_x(x,t) = \left(1 - \frac{x}{\pi}\right)g(t) + \frac{x}{\pi}h(t) = g(t) + \frac{x}{\pi}\bigl(h(t) - g(t)\bigr).\]
+              We can integrate with respect to \(x\) to find \(v(x,t)\):
+              \[v(x,t) = \int g(t) + \frac{x}{\pi}\bigl(h(t) - g(t)\bigr) \dd{x} = g(t)x + \frac{x^2}{2\pi}\bigl(h(t) - g(t)\bigr) + C(t).\]
+              We can choose \(C(t) = 0\).
+              We can verify that this function satisfies the boundary conditions:
+              \[v_x(0,t) = g(t) + 0 = g(t),\]
+              \[v_x(\pi, t) = g(t) + \frac{\pi}{\pi}\bigl(h(t) - g(t)\bigr) = h(t).\]
+
+    \end{enumerate}
 \end{solution}
 
 \pagebreak
@@ -43,7 +69,53 @@ Solve the heat equation with source:
 \]
 \end{problem}
 \begin{solution}
+    Recall that for the heat equation with source \(Q(x,t)\), homogeneous Dirichlet boundary conditions, and initial profile \(f(x)\)
+    \[
+        \begin{cases}
+            \begin{aligned}
+                u_t - u_{xx}        & = Q(x,t), &  & 0 < x < \pi, & t > 0, \\
+                u(0, t) = u(\pi, t) & = 0,      &  & t > 0,                \\
+                u(x, 0)             & = f(x),   &  & 0 < x < \pi,
+            \end{aligned}
+        \end{cases}
+    \]
+    the general solution is given by
+    \[u(x,t) = \sum_{n=1}^\infty A_n(t)\sin(nx),\]
+    where
+    \begin{align*}
+        A_n(t) & = e^{-n^2t}\int_0^t e^{n^2s}q_n(s) \dd{s} + e^{-n^2t}a_n, \\
+        q_n(t) & = \frac{2}{\pi}\int_0^\pi Q(x,t)\sin(nx) \dd{x}           \\
+        a_n    & = \frac{2}{\pi}\int_0^\pi f(x)\sin(nx) \dd{x}.
+    \end{align*}
 
+    We first compute \(q_n(t)\).
+    \begin{align*}
+        q_n(t) & = \frac{2}{\pi}\int_0^\pi e^{-t}\sin(3x)\sin(nx) \dd{x}  \\
+               & = \frac{2}{\pi}e^{-t}\int_0^\pi \sin(3x)\sin(nx) \dd{x}.
+    \end{align*}
+    By orthogonality of the sine functions, we know that the integral is \(\frac{\pi}{2}\) when \(n = 3\) and 0 otherwise. This gives
+    \[
+        q_n(t) = \begin{cases}
+            e^{-t}, & n = 3,    \\
+            0,      & n \neq 3.
+        \end{cases}
+    \]
+
+    We now compute \(a_n\).
+    \begin{align*}
+        a_n & = \frac{2}{\pi}\int_0^\pi \sin(nx) \dd{x}              \\
+            & = \frac{2}{\pi}\left[-\frac{1}{n}\cos(nx)\right]_0^\pi \\
+            & = \frac{2}{n\pi}\left(1 - (-1)^n\right).
+    \end{align*}
+
+    We can now compute \(A_n(t)\). For \(n \neq 3\), the integral is 0, so we can write
+    \begin{align*}
+        u(x,t) & = e^{-3^2t}\int_0^t e^{3^2s}q_3(s) \dd{s}\sin(3x) + \sum_{n=1}^\infty e^{-n^2t}a_n\sin(nx)                                     \\
+               & = e^{-9t}\int_0^t e^{9s}e^{-s} \dd{s}\sin(3x) + \sum_{n=1}^\infty e^{-n^2t}\frac{2}{n\pi}\left(1 - (-1)^n\right)\sin(nx)       \\
+               & = e^{-9t}\int_0^t e^{8s} \dd{s}\sin(3x) + \sum_{n=1}^\infty e^{-n^2t}\frac{2}{n\pi}\left(1 - (-1)^n\right)\sin(nx)             \\
+               & = e^{-9t}\left[\frac{1}{8}e^{8s}\right]_0^t\sin(3x) + \sum_{n=1}^\infty e^{-n^2t}\frac{2}{n\pi}\left(1 - (-1)^n\right)\sin(nx) \\
+               & = \frac{1}{8}(e^{-t} - e^{-9t})\sin(3x) + \sum_{n=1}^\infty e^{-n^2t}\frac{2}{n\pi}\left(1 - (-1)^n\right)\sin(nx).
+    \end{align*}
 \end{solution}
 
 \pagebreak
@@ -62,7 +134,55 @@ Solve the heat equation with inhomogeneous Dirichlet boundary condition:
 \]
 \end{problem}
 \begin{solution}
+    We devise a function \(v(x,t)\) that satisfies the inhomogeneous boundary conditions. We choose a function that is a linear interpolation between \(0\) and \(t\) at \(x = 0\) and \(x = \pi\), respectively:
+    \[v(x,t) = \frac{x}{\pi}t.\]
+    Let \(w(x,t) = u(x,t) - v(x,t)\). Then
+    \begin{align*}
+        w_t - w_{xx} & = (u_t - v_t) - (u_{xx} - v_{xx}) \\
+                     & = (u_t - u_{xx}) - v_t + v_{xx}   \\
+                     & = 0 - \frac{x}{\pi} + 0           \\
+                     & = -\frac{x}{\pi}.
+    \end{align*}
+    We can see that \(w(x,t)\) satisfies
+    \[
+        \begin{cases}
+            \begin{aligned}
+                w_t - w_{xx}        & = -\frac{x}{\pi}, &  & 0 < x < \pi, & t > 0, \\
+                w(0, t) = w(\pi, t) & = 0,              &  & t > 0,                \\
+                w(x, 0)             & = 0,              &  & 0 < x < \pi.
+            \end{aligned}
+        \end{cases}
+    \]
+    We now have a heat equation with source \(Q(x) = -\frac{x}{\pi}\) which is independent of \(t\), homogeneous Dirichlet boundary conditions, and initial profile \(f(x) = 0\). We recall the general solution is given by
+    \[w(x,t) = \sum_{n=1}^\infty A_n(t)\sin(nx),\]
+    where
+    \begin{align*}
+        A_n(t) & = \frac{q_n}{n^2}\left(1 - e^{-n^2t}\right) + e^{-n^2t}a_n, \\
+        q_n    & = \frac{2}{\pi}\int_0^\pi Q(x)\sin(nx) \dd{x},              \\
+        a_n    & = \frac{2}{\pi}\int_0^\pi f(x)\sin(nx) \dd{x}.
+    \end{align*}
+    Since \(a_n = \frac{2}{\pi}\int_0^\pi 0\sin(nx) \dd{x} = 0\), we have
+    \[A_n(t) = \frac{q_n}{n^2}\left(1 - e^{-n^2t}\right).\]
 
+    We can compute \(q_n\).
+    \begin{align*}
+        q_n & = \frac{2}{\pi}\int_0^\pi -\frac{x}{\pi}\sin(nx) \dd{x}                                                          \\
+            & = -\frac{2}{\pi^2}\int_0^\pi x\sin(nx) \dd{x}                                                                    \\
+            & = -\frac{2}{\pi^2}\left[\left[-\frac{1}{n}x\cos(nx)\right]_0^\pi - \int_0^\pi -\frac{1}{n}\cos(nx) \dd{x}\right] \\
+            & = -\frac{2}{\pi^2}\left(-\frac{1}{n}\pi(-1)^n\right) - \frac{2}{\pi^2}\left[\frac{1}{n^2}\sin(nx)\right]_0^\pi   \\
+            & = \frac{2}{n\pi}(-1)^n.
+    \end{align*}
+
+    We now compute \(A_n(t)\).
+    \begin{align*}
+        A_n(t) & = \frac{q_n}{n^2}\left(1 - e^{-n^2t}\right)         \\
+               & = \frac{2}{n^3\pi}(-1)^n\left(1 - e^{-n^2t}\right).
+    \end{align*}
+
+    We have
+    \[w(x,t) = \sum_{n=1}^\infty \frac{2}{n^3\pi}(-1)^n\left(1 - e^{-n^2t}\right)\sin(nx).\]
+    and
+    \[u(x,t) = w(x,t) + v(x,t) = \sum_{n=1}^\infty \frac{2}{n^3\pi}(-1)^n\left(1 - e^{-n^2t}\right)\sin(nx) + \frac{x}{\pi}t.\]
 \end{solution}
 
 \pagebreak
@@ -80,7 +200,47 @@ Solve the wave equation with a constant gravitational force:
 \]
 \end{problem}
 \begin{solution}
+    Recall that for the wave equation with source \(Q(x,t)\), homogeneous Dirichlet boundary conditions, and initial profiles \(f(x)\) and \(g(x)\)
+    \[
+        \begin{cases}
+            \begin{aligned}
+                u_{tt} - u_{xx}     & = Q(x,t), &  & 0 < x < \pi, & t > 0, \\
+                u(0, t) = u(\pi, t) & = 0,      &  & t > 0,                \\
+                u(x, 0)             & = f(x),   &  & 0 < x < \pi,          \\
+                u_t(x, 0)           & = g(x),   &  & 0 < x < \pi,
+            \end{aligned}
+        \end{cases}
+    \]
+    the general solution is given by
+    \[u(x,t) = \sum_{n=1}^\infty A_n(t)\sin(nx),\]
+    where
+    \begin{align*}
+        A_n(t) & = \left(a_n - \frac{1}{n}\int_0^t q_n(s)\sin(ns) \dd{s}\right)\cos(nt) + \left(\frac{b_n}{n} + \frac{1}{n}\int_0^t q_n(s)\cos(ns) \dd{s}\right)\sin(nt), \\
+        q_n(t) & = \frac{2}{\pi}\int_0^\pi Q(x,t)\sin(nx) \dd{x},                                                                                                         \\
+        a_n    & = \frac{2}{\pi}\int_0^\pi f(x)\sin(nx) \dd{x},                                                                                                           \\
+        b_n    & = \frac{2}{\pi}\int_0^\pi g(x)\sin(nx) \dd{x}.
+    \end{align*}
 
+    Since \(f(x) = 0\) and \(g(x) = 0\), we have \(a_n = b_n = 0\). We can compute \(q_n\).
+    \begin{align*}
+        q_n & = \frac{2}{\pi}\int_0^\pi -1\sin(nx) \dd{x}             \\
+            & = -\frac{2}{\pi}\left[-\frac{1}{n}\cos(nx)\right]_0^\pi \\
+            & = \frac{2}{n\pi}\left((-1)^n - 1\right).
+    \end{align*}
+
+    We can now compute \(A_n(t)\).
+    \begin{align*}
+        A_n(t) & = \left(0 - \frac{1}{n}\int_0^t q_n \sin(ns) \dd{s}\right)\cos(nt) + \left(\frac{0}{n} + \frac{1}{n}\int_0^t q_n \cos(ns) \dd{s}\right)\sin(nt) \\
+               & = \left(-\frac{1}{n}q_n\int_0^t \sin(ns) \dd{s}\right)\cos(nt) + \left(\frac{1}{n}q_n\int_0^t \cos(ns) \dd{s}\right)\sin(nt)                     \\
+               & = \frac{q_n}{n}\left(\int_0^t \cos(ns) \dd{s}\sin(nt) - \int_0^t \sin(ns) \dd{s}\cos(nt)\right)                                                    \\
+               & = \frac{q_n}{n}\left(\left[\frac{1}{n}\sin(ns)\right]_0^t\sin(nt) - \left[-\frac{1}{n}\cos(ns)\right]_0^t\cos(nt) \right)                        \\
+               & = \frac{q_n}{n^2}\left(\sin^2(nt) + \cos^2(nt) - \cos(nt)\right)                                                                                 \\
+                & = \frac{q_n}{n^2}\left(1 - \cos(nt)\right)                                                                                                        \\
+                & = \frac{2}{n^3\pi}\left((-1)^n - 1\right)\left(1 - \cos(nt)\right).
+    \end{align*}
+
+    We have the solution
+    \[u(x,t) = \sum_{n=1}^\infty \frac{2}{n^3\pi}\left((-1)^n - 1\right)\left(1 - \cos(nt)\right)\sin(nx).\]
 \end{solution}
 
 \end{document}

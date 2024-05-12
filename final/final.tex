@@ -1,0 +1,123 @@
+\documentclass[plain]{pset}
+\usepackage{dylanhu}
+
+\title{Final Exam}
+\author{Dylan Hu}
+\prof{Professor Zhuolun Yang}
+\course{APMA 0360 --- Partial Differential Equations}
+\date{May 16, 2024}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{problem}
+Let \(u(x, t)\) be the solution of the heat equation on the real line
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t     & = u_{xx}, & x \in \R, &  & t > 0, \\
+            u(x, 0) & = f(x),   & x \in \R,
+        \end{aligned}
+    \end{cases}
+\]
+where
+\[
+    f(x) = \begin{cases}
+        1, & -1 \leq x \geq 1, \\
+        0, & \abs{x} > 1.
+    \end{cases}
+\]
+Compute \(\hat{u}(\kappa, t)\), the Fourier transform of \(u(x, t)\), explicitly. (You do not need to find the solution \(u(x, t)\).)
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve the damped wave equation
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{tt} + 2u_t + u & = u_{xx},            & x \in \R, &  & t > 0, \\
+            u(x, 0)           & = \frac{1}{1 + x^2}, & x \in \R,             \\
+            u_t(x, 0)         & = 1,                 & x \in \R.
+        \end{aligned}
+    \end{cases}
+\]
+\begin{hint}
+    Find the equation satisfied by \(v(x, t) = e^t u(x, t)\) first, and use the solution to that problem to find \(u(x, t)\).
+\end{hint}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Find the general solution of
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{xx} - 2u_x + u_{yy} & = 0, &  & 0 < x, y < \pi, \\
+            u(x, 0)                & = 0, &  & 0 < x < \pi,    \\
+            u(x, \pi)              & = 0, &  & 0 < x < \pi
+        \end{aligned}
+    \end{cases}
+\]
+using separation of variables.
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Let \(u(x, t)\) be the solution of the following heat equation with mixed boundary conditions
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_t         & = u_{xx} + 3x^2, &  & 0 < x < \pi, &  & t > 0, \\
+            u(0, t)     & = 0,             &  & t > 0,                   \\
+            u_x(\pi, t) & = 1,             &  & t > 0,                   \\
+            u(x, 0)     & = \sin(x),       &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+Find the limiting function \(u_\infty(x) = \lim_{t \to \infty} u(x, t)\).
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\pagebreak
+
+\begin{problem}
+Solve the following wave equation with inhomogeneous mixed boundary conditions
+\[
+    \begin{cases}
+        \begin{aligned}
+            u_{tt}      & = u_{xx},                        &  & 0 < x < \pi, &  & t > 0, \\
+            u(0, t)     & = 0,                             &  & t > 0,                   \\
+            u_x(\pi, t) & = \sin\left(\frac{3t}{2}\right), &  & t > 0,                   \\
+            u(x, 0)     & = 0,                             &  & 0 < x < \pi,             \\
+            u_t(x, 0)   & = 0,                             &  & 0 < x < \pi.
+        \end{aligned}
+    \end{cases}
+\]
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\end{document}

@@ -184,7 +184,7 @@ Find the limiting function \(u_\infty(x) = \lim_{t \to \infty} u(x, t)\).
             \begin{aligned}
                 w_t         & = w_{xx} + Q(x), &  & 0 < x < \pi, &  & t > 0, \\
                 w(0, t)     & = 0,             &  & t > 0,                   \\
-                w_x(\pi, t) & = 0,             &  & t > 0.
+                w_x(\pi, t) & = 0,             &  & t > 0
             \end{aligned}
         \end{cases}
     \]
@@ -200,13 +200,13 @@ Find the limiting function \(u_\infty(x) = \lim_{t \to \infty} u(x, t)\).
     \]
     which leads to the limiting function \(u_\infty(x) = w_\infty(x) + v(x)\).
 
-    Let \(v(x) = \frac{x^2}{2\pi}\). Then \(v'(x) = \frac{x}{\pi}, \, v''(x) = \frac{1}{\pi}\), and \(v(0) = 0, \, v'(\pi) = 1\). We have
+    Let \(v(x) = x\). Then \(v(0) = 0, \> v'(x) = 1, \> v''(x) = 0\), and so
     \[
         \begin{cases}
             \begin{aligned}
-                w_t         & = w_{xx} + 3x^2 + \frac{1}{\pi}, &  & 0 < x < \pi, &  & t > 0, \\
-                w(0, t)     & = 0,                             &  & t > 0,                   \\
-                w_x(\pi, t) & = 0,                             &  & t > 0,                   \\
+                w_t         & = w_{xx} + 3x^2, &  & 0 < x < \pi, &  & t > 0, \\
+                w(0, t)     & = 0,             &  & t > 0,                   \\
+                w_x(\pi, t) & = 0,             &  & t > 0,                   \\
             \end{aligned}
         \end{cases}
     \]
@@ -214,23 +214,23 @@ Find the limiting function \(u_\infty(x) = \lim_{t \to \infty} u(x, t)\).
     \[
         \begin{cases}
             \begin{aligned}
-                -w_\infty''(x) & = 3x^2 + \frac{1}{\pi}, & 0 < x < \pi, \\
-                w_\infty(0)    & = 0,                                   \\
+                -w_\infty''(x) & = 3x^2, & 0 < x < \pi, \\
+                w_\infty(0)    & = 0,                   \\
                 w_\infty'(\pi) & = 0.
             \end{aligned}
         \end{cases}
     \]
-    
-    \[w_\infty''(x) = -3x^2 - \frac{1}{\pi} \implies w_\infty'(x) = -x^3 - \frac{x}{\pi} + c_1 \implies w_\infty(x) = -\frac{x^4}{4} - \frac{x^2}{2\pi} + c_1x + c_2.\]
-    \[w_\infty(0) = 0 \implies c_2 = 0, \quad v_\infty(\pi) = 0 \implies -\frac{\pi^4}{4} - \frac{\pi^2}{2\pi} + c_1\pi = 0 \implies c_1 = \frac{\pi^3  +2}{4}.\]
+
+    \[w_\infty''(x) = -3x^2 \implies w_\infty'(x) = -x^3 + c_1 \implies w_\infty(x) = -\frac{x^4}{4} + c_1x + c_2.\]
+    \[w_\infty(0) = 0 \implies c_2 = 0, \quad w_\infty'(\pi) = 0 \implies -\pi^3 + c_1 = 0 \implies c_1 = \pi^3.\]
 
     So we have
-    \[w_\infty(x) = -\frac{x^4}{4} - \frac{x^2}{2\pi} + \frac{\pi^3 + 2}{4}x.\]
+    \[w_\infty(x) = \pi^3x - \frac{x^4}{4}.\]
     and
     \begin{align*}
-        u_\infty(x) & = w_\infty(x) + v(x)                                                          \\
-                    & = -\frac{x^4}{4} - \frac{x^2}{2\pi} + \frac{\pi^3 + 2}{4}x + \frac{x^2}{2\pi} \\
-                    & = \frac{\left(\pi^3 + 2\right)x - x^4}{4}.
+        u_\infty(x) & = w_\infty(x) + v(x)                       \\
+                    & = \pi^3x - \frac{x^4}{4} + x               \\
+                    & = \left(\pi^3 + 1\right)x - \frac{x^4}{4}.
     \end{align*}
 \end{solution}
 

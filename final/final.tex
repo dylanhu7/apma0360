@@ -1,6 +1,8 @@
 \documentclass[plain]{pset}
 \usepackage{dylanhu}
 
+\DeclareMathOperator{\sinc}{sinc}
+
 \title{Final Exam}
 \author{Dylan Hu}
 \prof{Professor Zhuolun Yang}
@@ -26,15 +28,29 @@ Let \(u(x, t)\) be the solution of the heat equation on the real line
 where
 \[
     f(x) = \begin{cases}
-        1, & -1 \leq x \geq 1, \\
+        1, & -1 \leq x \leq 1, \\
         0, & \abs{x} > 1.
     \end{cases}
 \]
 Compute \(\hat{u}(\kappa, t)\), the Fourier transform of \(u(x, t)\), explicitly. (You do not need to find the solution \(u(x, t)\).)
 \end{problem}
-
 \begin{solution}
-
+    Recall that the Fourier transform of the heat equation in general is
+    \[\hat{u}(\kappa, t) = \hat{u}(\kappa, 0) e^{-D\kappa^2 t}.\]
+    Here, we have \(D = 1\) and \(\hat{u}(\kappa, 0) = \hat{f}(\kappa)\). So, it remains to compute \(\hat{f}(\kappa)\). We have
+    \begin{align*}
+        \hat{f}(\kappa) & =  \int_{-\infty}^\infty  e^{i\kappa x} f(x) \dd{x}                                               \\
+                        & =  \int_{-1}^1 e^{i\kappa x} \dd{x}                                                               \\
+                        & =  \frac{1}{i\kappa} \left[e^{i\kappa x} \right]_{-1}^1                                           \\
+                        & =  \frac{1}{i\kappa} \left(e^{i\kappa} - e^{-i\kappa}\right)                                      \\
+                        & =  \frac{1}{i\kappa} \left[ \cos(\kappa) + i\sin(\kappa) - \cos(-\kappa) - i\sin(-\kappa) \right] \\
+                        & =  \frac{1}{i\kappa} \left[ \cos(\kappa) + i\sin(\kappa) - \cos(\kappa) + i\sin(\kappa) \right]   \\
+                        & =  \frac{2i\sin(\kappa)}{i\kappa}                                                                 \\
+                        & = \frac{2\sin(\kappa)}{\kappa}                                                                    \\
+                        & =  2\sinc(\kappa).
+    \end{align*}
+    Thus, we have
+    \[\hat{u}(\kappa, t) = 2\sinc(\kappa) e^{-\kappa^2 t}.\]
 \end{solution}
 
 \pagebreak
@@ -54,8 +70,44 @@ Solve the damped wave equation
     Find the equation satisfied by \(v(x, t) = e^t u(x, t)\) first, and use the solution to that problem to find \(u(x, t)\).
 \end{hint}
 \end{problem}
-
 \begin{solution}
+    \begin{align*}
+        v(x, t) & = e^t u(x, t),                  \\
+        v_t     & = e^t u_t + e^t u,              \\
+        v_{tt}  & = e^t u_{tt} + 2e^t u_t + e^t u \\
+                & = e^t(u_{tt} + 2u_t + u)        \\
+                & = e^t u_{xx}                    \\
+                & = v_{xx}.
+    \end{align*}
+    We see that \(v(x, t)\) satisfies the undamped wave equation. The initial profiles are
+    \[v(x, 0) = \frac{e^0}{1 + x^2} = \frac{1}{1 + x^2}, \quad v_t(x, 0) = e^0(u_t(x, 0) + u(x, 0)) = 1 + \frac{1}{1 + x^2}.\]
+    Now, we have the system
+    \[
+        \begin{cases}
+            \begin{aligned}
+                v_{tt}    & = v_{xx},                & x \in \R, &  & t > 0, \\
+                v(x, 0)   & = \frac{1}{1 + x^2},     & x \in \R,             \\
+                v_t(x, 0) & = 1 + \frac{1}{1 + x^2}, & x \in \R.
+            \end{aligned}
+        \end{cases}
+    \]
+    which we can solve using d'Alembert's formula. Recall that the solution in general is
+    \[v(x, t) = \frac{1}{2}f(x + ct) + \frac{1}{2}f(x - ct) + \frac{1}{2c} \int_{x - ct}^{x + ct} g(s) \dd{s}.\]
+    Here, we have \(f(x) = \frac{1}{1 + x^2}\), \(g(x) = 1 + \frac{1}{1 + x^2}\), and \(c = 1\).
+    \[v(x, t) = \frac{1}{2}\left(\frac{1}{1 + (x + t)^2} + \frac{1}{1 + (x - t)^2}\right) + \frac{1}{2} \int_{x - t}^{x + t} 1 + \frac{1}{1 + s^2} \dd{s}.\]
+
+    We will leave the first two terms and compute the integral first.
+    \begin{align*}
+        \int_{x - t}^{x + t} 1 + \frac{1}{1 + s^2} \dd{s} & = \bigl[s + \arctan(s)\bigr]_{x - t}^{x + t}          \\
+                                                          & = (x + t + \arctan(x + t)) - (x - t + \arctan(x - t)) \\
+                                                          & = 2t + \arctan(x + t) - \arctan(x - t).
+    \end{align*}
+    Thus, we have
+    \[v(x, t) = \frac{1}{2}\left(\frac{1}{1 + (x + t)^2} + \frac{1}{1 + (x - t)^2} + 2t + \arctan(x + t) - \arctan(x - t)\right).\]
+    Finally, we have
+    \[u(x, t) = e^{-t}v(x, t) = \frac{1}{2e^t}\left(\frac{1}{1 + (x + t)^2} + \frac{1}{1 + (x - t)^2} + 2t + \arctan(x + t) - \arctan(x - t)\right).\]
+    If we let \(\xi = x + t\) and \(\eta = x - t\), we can write this as
+    \[u(\xi, \eta) = \frac{1}{2}e^{\frac{\eta - \xi}{2}}\left(\frac{1}{1 + \xi^2} + \frac{1}{1 + \eta^2} + \xi - \eta + \arctan(\xi) - \arctan(\eta)\right).\]
 \end{solution}
 
 \pagebreak
@@ -73,9 +125,38 @@ Find the general solution of
 \]
 using separation of variables.
 \end{problem}
-
 \begin{solution}
+    Let \(u(x, y) = X(x)Y(y)\). Then
+    \[X''Y - 2X'Y + XY'' = 0 \implies \frac{2X' - X''}{X} = \frac{Y''}{Y} = \lambda.\]
+    We solve the ODE in \(y\) first, as we have the boundary conditions in \(y\).
+    \[
+        \begin{cases}
+            \begin{aligned}
+                Y''           & = \lambda Y, & 0 < y < \pi, \\
+                Y(0) = Y(\pi) & = 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    Recall that the general solution for the homogeneous Dirichlet boundary conditions with \(\lambda = -n^2\) is
+    \[Y_n(y) = c_n \sin(ny), \quad n = 1, 2, 3, \ldots\]
+    where \(c\) is a constant.
 
+    Now, we solve the ODE in \(x\).
+    \[\frac{2X' - X''}{X} = \lambda \implies X'' - 2X' + \lambda X = 0.\]
+    We have the auxiliary equation
+    \[r^2 - 2r + \lambda = 0 \implies r = 1 \pm \sqrt{1 - \lambda} = 1 \pm \sqrt{1 + n^2}.\]
+    Since the roots are real and distinct, the general solution is
+    \begin{align*}
+        X_n(x) & = \tilde{a}_n e^{(1 + \sqrt{1 + n^2})x} + \tilde{b}_n e^{(1 - \sqrt{1 + n^2})x}                              \\
+               & = e^x\left(\tilde{a}_n e^{\sqrt{1 + n^2}x} + \tilde{b}_n e^{-\sqrt{1 + n^2}x}\right)                         \\
+               & = e^x\left(\hat{a}_n \cosh\left(\sqrt{1 + n^2}x\right) + \hat{b}_n \sinh\left(\sqrt{1 + n^2}x\right)\right).
+    \end{align*}
+
+    The general solution is then
+    \begin{align*}
+        u(x, y) & = \sum_{n = 1}^\infty e^x\left(\hat{a}_n \cosh\left(\sqrt{1 + n^2}x\right) + \hat{b}_n \sinh\left(\sqrt{1 + n^2}x\right)\right) c_n\sin(ny) \\
+                & = e^x \sum_{n = 1}^\infty \left(a_n \cosh\left(\sqrt{1 + n^2}x\right) + b_n \sinh\left(\sqrt{1 + n^2}x\right)\right) \sin(ny).
+    \end{align*}
 \end{solution}
 
 \pagebreak
@@ -94,9 +175,57 @@ Let \(u(x, t)\) be the solution of the following heat equation with mixed bounda
 \]
 Find the limiting function \(u_\infty(x) = \lim_{t \to \infty} u(x, t)\).
 \end{problem}
-
 \begin{solution}
+    We can devise functions \(w(x, t)\) and \(v(x)\) such that
+    \[w(x, t) = u(x, t) - v(x, t)\]
+    and
+    \[
+        \begin{cases}
+            \begin{aligned}
+                w_t       & = w_{xx} + Q(x), &  & 0 < x < \pi, &  & t > 0, \\
+                w(0, t)   & = 0,             &  & t > 0,                   \\
+                w(\pi, t) & = 0,             &  & t > 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    so that we can find the limiting function \(w_\infty(x) = \lim_{t \to \infty} w(x, t)\) by solving the ODE
+    \[
+        \begin{cases}
+            \begin{aligned}
+                -w_\infty''(x) & = Q(x), & 0 < x < \pi, \\
+                w_\infty(0)    & = 0,                   \\
+                w_\infty(\pi)  & = 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    which leads to the limiting function \(u_\infty(x) = w_\infty(x) + v(x)\).
 
+    Let \(v(x) = \frac{x^2}{2\pi}\). Then \(v'(x) = \frac{x}{\pi}, \, v''(x) = \frac{1}{\pi}\), and \(v(0) = 0, \, v'(\pi) = 1\). We have
+    \[
+        \begin{cases}
+            \begin{aligned}
+                w_t         & = w_{xx} + 3x^2 - \frac{1}{\pi}, &  & 0 < x < \pi, &  & t > 0, \\
+                w(0, t)     & = 0,                             &  & t > 0,                   \\
+                w(\pi, t) & = 0,                             &  & t > 0,                   \\
+            \end{aligned}
+        \end{cases}
+    \]
+    and
+    \[
+        \begin{cases}
+            \begin{aligned}
+                -w_\infty''(x) & = 3x^2 - \frac{1}{\pi}, & 0 < x < \pi, \\
+                w_\infty(0)    & = 0,                                   \\
+                w_\infty(\pi)  & = 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    \[v_\infty''(x) = -3x^2 \implies v_\infty'(x) = -x^3 + c_1 \implies v_\infty(x) = -\frac{x^4}{4} + c_1x + c_2.\]
+    \[v_\infty(0) = 0 \implies c_2 = 0, \quad v_\infty(\pi) = 0 \implies -\frac{\pi^4}{4} + c_1\pi = 0 \implies c_1 = \frac{\pi^3}{4}.\]
+    So we have
+    \[v_\infty(x) = \frac{\pi^3 x - x^4}{4} \implies u_\infty(x) = \frac{\pi^3 x - x^4}{4} + \frac{x}{\pi}.\]
+    and
+    \[u_\infty(x) = \frac{\pi^3 x - x^4}{4} + \frac{x}{\pi}.\]
 \end{solution}
 
 \pagebreak
@@ -115,7 +244,6 @@ Solve the following wave equation with inhomogeneous mixed boundary conditions
     \end{cases}
 \]
 \end{problem}
-
 \begin{solution}
 
 \end{solution}

@@ -251,6 +251,140 @@ Solve the following wave equation with inhomogeneous mixed boundary conditions
 \]
 \end{problem}
 \begin{solution}
+    First, we devise the functions \(w(x, t)\) and \(v(x)\) such that
+    \[w(x, t) = u(x, t) - v(x, t)\]
+    and
+    \[
+        \begin{cases}
+            \begin{aligned}
+                w_{tt} - w_{xx} & = Q(x, t), &  & 0 < x < \pi, &  & t > 0, \\
+                w(0, t)         & = 0,       &  & t > 0,                   \\
+                w_x(\pi, t)     & = 0,       &  & t > 0.
+            \end{aligned}
+        \end{cases}
+    \]
+    We choose \(v(x, t) = \sin\left(\frac{3t}{2}\right)x\). Then
+    \[
+        \begin{cases}
+            \begin{aligned}
+                w_{tt} - w_{xx} & = \frac{9}{4}\sin\left(\frac{3t}{2}\right)x, &  & 0 < x < \pi, &  & t > 0, \\
+                w(0, t)         & = 0,                                         &  & t > 0,                   \\
+                w_x(\pi, t)     & = 0,                                         &  & t > 0,                   \\
+                w(x, 0)         & = 0,                                         &  & 0 < x < \pi,             \\
+                w_t(x, 0)       & = -\frac{3x}{2},                             &  & 0 < x < \pi.
+            \end{aligned}
+        \end{cases}
+    \]
+
+    We can now solve this using the eigenfunction method.
+
+    First, we show that with these homogeneous mixed boundary conditions in \(x\), the solutions are of the form
+    \[w(x, t) \stackrel{L^2}{=} \sum_{n = 1}^\infty A_n(t) \sin(nx).\]
+    Using separation of variables and letting \(w(x, t) = X(x)T(t)\), we arrive at the ODE in \(x\)
+    \[
+        \begin{cases}
+            \begin{aligned}
+                X''(x)  & = \lambda X(x), &  & 0 < x < \pi, \\
+                X(0)    & = 0,            &  & x = 0,       \\
+                X'(\pi) & = 0,            &  & x = \pi.
+            \end{aligned}
+        \end{cases}
+    \]
+    We can let \(\omega > 0\) and consider the three cases \(\lambda = 0\), \(\lambda = \omega^2 > 0\), and \(\lambda = -\omega^2 < 0\).
+
+    \textbf{Case 1: \(\lambda = 0\).}
+    \[X''(x) = 0 \implies X(x) = c_1 + c_2x\]
+    \[X(0) = 0 \implies c_1 = 0, \quad X'(\pi) = 0 \implies c_2 = 0.\]
+    So, there are only trivial solutions in this case.
+
+    \textbf{Case 2: \(\lambda = \omega^2 > 0\).}
+    \[X''(x) = \omega^2 X(x) \implies X(x) = c_1e^{\omega x} + c_2e^{-\omega x}\]
+    \[X'(x) = c_1\omega e^{\omega x} - c_2\omega e^{-\omega x}\]
+    \[X(0) = 0 \implies c_1 + c_2 = 0 \implies c_2 = -c_1\]
+    \[X'(\pi) = 0 \implies c_1\omega e^{\omega \pi} + c_1\omega e^{-\omega \pi} = 0 \implies c_1 = 0\]
+    So, there are only trivial solutions in this case.
+
+    \textbf{Case 3: \(\lambda = -\omega^2 < 0\).}
+    \[X''(x) = -\omega^2 X(x) \implies X(x) = c_1\cos(\omega x) + c_2\sin(\omega x)\]
+    \[X'(x) = -c_1\omega\sin(\omega x) + c_2\omega\cos(\omega x)\]
+    \[X(0) = 0 \implies c_1 = 0\]
+    \[X'(\pi) = 0 \implies c_2\omega\cos(\omega \pi) = 0 \implies \omega = n + \frac{1}{2}, \> n = 0, 1, 2, \ldots\]
+    This admits the solutions
+    \[X_n(x) = c_n\sin\left(\Bigl(n + \frac{1}{2}\Bigr)x\right).\]
+
+    With the ODE in \(t\), we now have
+    \[T''(t) = -\left(n + \frac{1}{2}\right)^2 T(t) \implies T(t) = a_n\cos\left(\Bigl(n + \frac{1}{2}\Bigr)t\right) + b_n\sin\left(\Bigl(n + \frac{1}{2}\Bigr)t\right).\]
+    and the general solution is
+    \[w(x, t) = \sum_{n = 0}^\infty \left(a_n\cos\Bigl(\bigl(n + \frac{1}{2}\bigr)t\Bigr) + b_n\sin\Bigl(\bigl(n + \frac{1}{2}\bigr)t\Bigr)\right) \sin\Bigl(\bigl(n + \frac{1}{2}\bigr)x\Bigr).\]
+
+    Now that we have shown that \(w(x, t)\) can be represented as a Fourier sine series in \(x\), we can find the coefficients \(A_n(t)\) using the formula derived in lecture for the wave equation with a source and inhomogeneous mixed initial conditions. Recall that for \(\tilde{u}(x, t) = \sum_{n = 1}^\infty A_n(t) \sin(nx)\), we have
+    \[
+        \begin{cases}
+            \begin{aligned}
+                \tilde{u}_{tt} - \tilde{u}_{xx} & = Q(x, t), &  & 0 < x < \pi, &  & t > 0, \\
+                \tilde{u}(x, 0)                 & = f(x),    &  & 0 < x < \pi,             \\
+                \tilde{u}_t(x, 0)               & = g(x),    &  & 0 < x < \pi.
+            \end{aligned}
+        \end{cases}
+    \]
+    where we decompose \(Q(x, t)\), \(f(x)\), and \(g(x)\) into their Fourier sine series as
+    \[Q(x, t) = \sum_{n = 1}^\infty q_n(t) \sin(nx), \quad f(x) = \sum_{n = 1}^\infty a_n \sin(nx), \quad g(x) = \sum_{n = 1}^\infty b_n \sin(nx)\]
+    which gives us the ODE
+    \[
+        \begin{cases}
+            \begin{aligned}
+                A_n''(t) + n^2A_n(t) & = q_n(t), &  & t > 0, \\
+                A_n(0)               & = a_n,    &  &        \\
+                A_n'(0)              & = b_n.    &  &
+            \end{aligned}
+        \end{cases}
+    \]
+    We recall the formula for \(A_n(t)\) is
+    \[A_n(t) = \left(a_n - \frac{1}{n}\int_0^t q_n(s)\sin(ns) \dd{s}\right)\cos(nt) + \left(\frac{b_n}{n} + \frac{1}{n}\int_0^t q_n(s)\cos(ns) \dd{s}\right)\sin(nt).\]
+
+    Here, we have \(Q(x, t) = \frac{9}{4}\sin\left(\frac{3t}{2}\right)x\), \(f(x) = 0\), and \(g(x) = -\frac{3x}{2}\). Trivially, \(a_n = 0\). We can find the other Fourier coefficients:
+    \begin{align*}
+        q_n(t) & = \frac{2}{\pi} \int_0^\pi \frac{9}{4}\sin\left(\frac{3t}{2}\right)x \sin(nx) \dd{x}                          \\
+               & = \frac{9}{2\pi} \sin\left(\frac{3t}{2}\right) \int_0^\pi x\sin(nx) \dd{x}                                    \\
+               & = \frac{9}{2\pi} \sin\left(\frac{3t}{2}\right) \left[-\frac{x\cos(nx)}{n} + \frac{\sin(nx)}{n^2}\right]_0^\pi \\
+               & = \frac{9}{2\pi} \sin\left(\frac{3t}{2}\right) \left(-\frac{\pi}{n}\left(-1\right)^n\right)                   \\
+               & = -(-1)^n\frac{9}{2n}\sin\left(\frac{3t}{2}\right).
+    \end{align*}
+    \begin{align*}
+        b_n & = \frac{2}{\pi} \int_0^\pi -\frac{3x}{2} \sin(nx) \dd{x}                        \\
+            & = -\frac{3}{\pi} \int_0^\pi x\sin(nx) \dd{x}                                    \\
+            & = -\frac{3}{\pi} \left[-\frac{x\cos(nx)}{n} + \frac{\sin(nx)}{n^2}\right]_0^\pi \\
+            & = -\frac{3}{\pi} \left(-\frac{\pi}{n}\left(-1\right)^n\right)                   \\
+            & = \frac{3(-1)^n}{n}.
+    \end{align*}
+
+    Now, let us calculate the coefficient of the \(\cos(nt)\) term in \(A_n(t)\).
+    \begin{align*}
+        -\frac{1}{n}\int_0^t q_n(s)\sin(ns) \dd{s} & = -\frac{1}{n}\int_0^t -(-1)^n\frac{9}{2n}\sin\left(\frac{3s}{2}\right)\sin(ns) \dd{s}                                                         \\
+                                                   & = (-1)^n\frac{9}{2n^2}\int_0^t \sin\left(\frac{3s}{2}\right)\sin(ns) \dd{s}                                                                    \\
+                                                   & = (-1)^n\frac{9}{2n^2}\int_0^t \frac{1}{2}\left[\cos\left(\frac{3s}{2} - ns\right) - \cos\left(\frac{3s}{2} + ns\right)\right] \dd{s}          \\
+                                                   & = (-1)^n\frac{9}{4n^2}\int_0^t \cos\left(\frac{3s}{2} - ns\right) - \cos\left(\frac{3s}{2} + ns\right) \dd{s}                                  \\
+                                                   & = (-1)^n\frac{9}{4n^2}\left[\frac{2}{3 - 2n}\sin\left(\frac{3s}{2} - ns\right) - \frac{2}{3 + 2n}\sin\left(\frac{3s}{2} + ns\right)\right]_0^t \\
+                                                   & = (-1)^n\frac{9}{2n^2}\left(\frac{1}{3 - 2n}\sin\left(\frac{3t}{2} - nt\right) - \frac{1}{3 + 2n}\sin\left(\frac{3t}{2} + nt\right)\right).
+    \end{align*}
+
+    And, the coefficient of the \(\sin(nt)\) term in \(A_n(t)\).
+    \begin{align*}
+        \frac{b_n}{n} + \frac{1}{n}\int_0^t q_n(s)\cos(ns) \dd{s} & = \frac{3(-1)^n}{n^2} + \frac{1}{n}\int_0^t -(-1)^n\frac{9}{2n}\sin\left(\frac{3s}{2}\right)\cos(ns) \dd{s}                                                                                            \\
+                                                                  & = \frac{3(-1)^n}{n^2} - (-1)^n\frac{9}{2n^2}\int_0^t \sin\left(\frac{3s}{2}\right)\cos(ns) \dd{s}                                                                                                      \\
+                                                                  & = \frac{3(-1)^2}{n^2}\left(1-\frac{3}{2} \int_0^t \sin\left(\frac{3s}{2}\right)\cos(ns) \dd{s}\right)                                                                                                  \\
+                                                                  & = \frac{3(-1)^2}{n^2}\left(1-\frac{3}{4}\int_0^t \sin\left(\frac{3s}{2} - ns\right) + \sin\left(\frac{3s}{2} + ns\right) \dd{s}\right)                                                                 \\
+                                                                  & = \frac{3(-1)^2}{n^2}\left(1+\frac{3}{2}\left[\frac{1}{3 - 2n}\cos\left(\frac{3s}{2} - ns\right) + \frac{1}{3 + 2n}\cos\left(\frac{3s}{2} + ns\right)\right]_0^t\right)                                \\
+                                                                  & = \frac{3(-1)^2}{n^2}\left(1+\frac{3}{2}\left[\frac{1}{3 - 2n}\left(\cos\left(\frac{3t}{2} - nt\right) - 1\right) + \frac{1}{3 + 2n}\left(\cos\left(\frac{3t}{2} + nt\right) - 1\right)\right]\right).
+    \end{align*}
+
+    So, we have
+    \[w(x, t) = \sum_{n = 1}^\infty A_n(t) \sin(nx)\]
+    with \(A_n\) given with the coefficients calculated above.
+
+    Finally, we have
+    \[u(x, t) = w(x, t) + v(x, t) = \sin\left(\frac{3t}{2}\right)x + \sum_{n = 1}^\infty A_n(t) \sin(nx).\]
+
 
 \end{solution}
 
